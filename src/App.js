@@ -13,6 +13,7 @@ import { Register } from "./components/Register/Register";
 // import { getAllItems } from "./services/services";
 import { Home } from "./components/Header/Home";
 import { Footer } from "./components/Footer/Footer";
+import { Logout } from "./components/Logout/Logout";
 // import { AddItem } from "./components/ListItems/AddItem";
 
 function App() {
@@ -35,21 +36,29 @@ function App() {
   };
 
   const onRegisterSubmit = async (data) => {
-    const { ConfirmPassword, ...regData } = data;
-    if(ConfirmPassword !== regData.Password) {
-      return new Error("Password does not match")
+    const { confirmPassword, ...regData } = data;
+
+    if (confirmPassword !== regData.password) {
+      return new Error("Password does not match");
     }
     try {
-      const result = await authService.register(data);
+      const result = await authService.register(regData);
       setAuth(result);
       return navigate("/");
     } catch (err) {
       console.error("there is an error");
     }
   };
+
+  const onLogout = async () => {
+    // await authService.logout();
+    setAuth({});
+  };
+
   const contextData = {
     onRegisterSubmit,
     onLoginSubmit,
+    onLogout,
     userId: auth._id,
     token: auth.accessToken,
     email: auth.email,
@@ -65,6 +74,7 @@ function App() {
           {/* <Route path="/add-item" element={<AddItem />} /> */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
         <Footer />
       </div>

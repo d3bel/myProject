@@ -13,7 +13,7 @@ const RegisterFormKeys = {
   LastName: "last-name",
   Email: "email",
   Password: "password",
-  ConfirmPassword: "repeat-password",
+  ConfirmPassword: "confirmPassword",
   Role: "formHorizontalRadios",
 };
 

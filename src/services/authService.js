@@ -1,9 +1,11 @@
 import * as request from "./requester";
 
-const baseUrl = "http://localhost:3030/jsonstore";
+const baseUrl = "http://localhost:3030/users";
 
 export const login = (loginData) => {
-  return request.get(`${baseUrl}/users`, loginData);
+  return request.post(`${baseUrl}/login`, loginData);
 };
 
-export const register = (data) => request.post(`${baseUrl}/users`, data);
+export const register = (data) => request.post(`${baseUrl}/register`, data);
+
+export const logout = () => request.get(`${baseUrl}/logout`);

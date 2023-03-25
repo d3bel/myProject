@@ -37,14 +37,6 @@ export const Header = () => {
             <Nav.Link as={Link} to="/catalogue">
               Catalogue
             </Nav.Link>
-            {isAuthenticated && (
-              <>
-                <span>{email}</span>
-                <Nav.Link as={Link} to="/logout">
-                  Logout
-                </Nav.Link>
-              </>
-            )}
             <NavDropdown
               title="Dropdown"
               id="basic-nav-dropdown"
@@ -60,6 +52,22 @@ export const Header = () => {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown>
+            {isAuthenticated && (
+              <>
+                <Nav.Link
+                  style={{
+                    color: "crimson",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                >
+                  {email}
+                </Nav.Link>
+                <Nav.Link as={Link} to="/logout">
+                  Logout
+                </Nav.Link>
+              </>
+            )}
           </Nav>
           <Form className="d-flex">
             <Form.Control
