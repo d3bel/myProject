@@ -18,10 +18,6 @@ const RegisterFormKeys = {
 };
 
 export const Register = () => {
-  const [role, setRole] = useState("");
-  const onRoleHandler = (e) => {
-    setRole(e.target.value);
-  };
   const { onRegisterSubmit } = useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm(
     {
@@ -34,6 +30,10 @@ export const Register = () => {
     },
     onRegisterSubmit
   );
+  const [role, setRole] = useState("");
+  const onRoleHandler = (e) => {
+    setRole(e.target.value);
+  };
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
@@ -182,7 +182,7 @@ export const Register = () => {
                 <Form.Check
                   type="radio"
                   label="User"
-                  onChange={(onRoleHandler, changeHandler)}
+                  onChange={(changeHandler, onRoleHandler)}
                   name={RegisterFormKeys.Role}
                   id="formHorizontalRadios2"
                   value="user"

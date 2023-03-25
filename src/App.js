@@ -7,18 +7,19 @@ import { AuthContext } from "./context/AuthContext";
 import * as authService from "./services/authService";
 
 import { Header } from "./components/Header/Header";
-// import { ListItems } from "./components/ListItems/ListItmes";
+import { Catalogue } from "./components/Catalogue/Catalogue";
 import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
-// import { getAllItems } from "./services/services";
+import { getAllItems } from "./services/services";
 import { Home } from "./components/Header/Home";
 import { Footer } from "./components/Footer/Footer";
 import { Logout } from "./components/Logout/Logout";
+import { AddItem } from "./components/Catalogue/AddItem";
 // import { AddItem } from "./components/ListItems/AddItem";
 
 function App() {
   const navigate = useNavigate();
-  // const [items, setItems] = useState([]);
+  const [items, setItems] = useState([]);
   const [auth, setAuth] = useState({});
 
   // useEffect(() => {
@@ -43,6 +44,7 @@ function App() {
     }
     try {
       const result = await authService.register(regData);
+      console.log(result);
       setAuth(result);
       return navigate("/");
     } catch (err) {
@@ -71,7 +73,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/add-item" element={<AddItem />} /> */}
+          <Route path="/catalogue" element={<Catalogue />} />
+          <Route path="/catalogue/add-item" element={<AddItem />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
