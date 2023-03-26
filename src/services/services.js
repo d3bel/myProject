@@ -7,3 +7,10 @@ export const getAllItems = async () => {
   const result = Object.values(res);
   return result;
 };
+
+export const create = async (data, token) => {
+  const result = await request.post(`${baseUrl}/items`, data, token);
+  console.log(result);
+
+  return result;
+};

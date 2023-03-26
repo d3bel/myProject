@@ -1,10 +1,12 @@
+import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
 
 import { useForm } from "../../hooks/useForm";
+import { AuthContext } from "../../context/AuthContext";
 
-export const AddItem = ({ onAddItemSubmit }) => {
+export const AddItem = () => {
+  const { onAddItemSubmit } = useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm(
     {
       title: "",
@@ -32,12 +34,12 @@ export const AddItem = ({ onAddItemSubmit }) => {
       >
         <h1 style={{ width: "10%", margin: "0 auto" }}>Add Item</h1>
         <Form
-          id="login"
+          id="add-item"
           className="mb-3"
           style={{ marginLeft: "15px", width: "80%" }}
           onSubmit={onSubmit}
         >
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="title">
             <Form.Label>Title:</Form.Label>
             <Form.Control
               type="text"
@@ -48,7 +50,7 @@ export const AddItem = ({ onAddItemSubmit }) => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3" controlId="category">
             <Form.Label>Category:</Form.Label>
             <Form.Control
               type="text"
@@ -58,27 +60,29 @@ export const AddItem = ({ onAddItemSubmit }) => {
               placeholder="Enter Category"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3" controlId="imageUrl">
+            <Form.Label>Image URL:</Form.Label>
+            <Form.Control
+              as="input"
+              type="text"
+              name="imageUrl"
+              value={values.imageUrl}
+              onChange={changeHandler}
+              placeholder="Enter Image URL"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="level">
             <Form.Label>Level:</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               name="level"
               value={values.level}
               onChange={changeHandler}
               placeholder="Enter Level"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Image:</Form.Label>
-            <Form.Control
-              type="text"
-              name="image"
-              value={values.imageUrl}
-              onChange={changeHandler}
-              placeholder="Enter Image"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+
+          <Form.Group className="mb-3" controlId="description">
             <Form.Label>Description:</Form.Label>
             <Form.Control
               as="textarea"
@@ -91,16 +95,8 @@ export const AddItem = ({ onAddItemSubmit }) => {
             />
           </Form.Group>
           <Button variant="outline-warning" type="submit">
-            Submit
+            Submit Item
           </Button>
-          <p className="field text-info">
-            <span>
-              If you don't have profile click{" "}
-              <Link className="text-dark" to="/register">
-                Here
-              </Link>
-            </span>
-          </p>
         </Form>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import ListGroup from "react-bootstrap/ListGroup";
 
-export const Items = ({ line }) => {
+export const Items = ({ item }) => {
   return (
     <>
       <ListGroup.Item variant="dark" action>
-        {line}
+        {item}
       </ListGroup.Item>
     </>
   );

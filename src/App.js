@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { AuthContext } from "./context/AuthContext";
 import * as authService from "./services/authService";
+import * as services from "./services/services";
 
 import { Header } from "./components/Header/Header";
 import { Catalogue } from "./components/Catalogue/Catalogue";
@@ -15,16 +16,22 @@ import { Home } from "./components/Header/Home";
 import { Footer } from "./components/Footer/Footer";
 import { Logout } from "./components/Logout/Logout";
 import { AddItem } from "./components/Catalogue/AddItem";
-// import { AddItem } from "./components/ListItems/AddItem";
 
 function App() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [auth, setAuth] = useState({});
 
-  // useEffect(() => {
-  //   getAllItems().then((item) => setItems(item));
-  // }, []);
+  useEffect(() => {
+    getAllItems().then((item) => setItems(item));
+  }, []);
+
+  const onAddItemSubmit = async (itemData) => {
+    const newItem = await services.create(itemData, auth.accessToken);
+    console.log(newItem);
+    setItems((state) => [...state, newItem]);
+    navigate("/catalogue");
+  };
 
   const onLoginSubmit = async (data) => {
     try {
@@ -44,7 +51,6 @@ function App() {
     }
     try {
       const result = await authService.register(regData);
-      console.log(result);
       setAuth(result);
       return navigate("/");
     } catch (err) {
@@ -53,11 +59,12 @@ function App() {
   };
 
   const onLogout = async () => {
-    // await authService.logout();
+    await authService.logout(auth.accessToken);
     setAuth({});
   };
 
   const contextData = {
+    onAddItemSubmit,
     onRegisterSubmit,
     onLoginSubmit,
     onLogout,
@@ -73,7 +80,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/catalogue" element={<Catalogue />} />
+          <Route path="/catalogue" element={<Catalogue items={items} />} />
           <Route path="/catalogue/add-item" element={<AddItem />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
