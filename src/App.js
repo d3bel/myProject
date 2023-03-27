@@ -4,14 +4,14 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { AuthContext } from "./context/AuthContext";
-import * as authService from "./services/authService";
-import * as services from "./services/services";
+// import { useTokenService } from "./hooks/useTokenService";
+import { AuthServiceFactory } from "./services/authService";
+import { itemServiceFactory } from "./services/itemServiceFactory";
 
 import { Header } from "./components/Header/Header";
 import { Catalogue } from "./components/Catalogue/Catalogue";
 import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
-import { getAllItems } from "./services/services";
 import { Home } from "./components/Header/Home";
 import { Footer } from "./components/Footer/Footer";
 import { Logout } from "./components/Logout/Logout";
@@ -21,13 +21,15 @@ function App() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const Service = itemServiceFactory(auth.accessToken);
+  const authService = AuthServiceFactory(auth.accessToken);
 
   useEffect(() => {
-    getAllItems().then((item) => setItems(item));
+    Service.getAllItems().then((item) => setItems(item));
   }, []);
 
   const onAddItemSubmit = async (itemData) => {
-    const newItem = await services.create(itemData, auth.accessToken);
+    const newItem = await Service.create(itemData, auth.accessToken);
     console.log(newItem);
     setItems((state) => [...state, newItem]);
     navigate("/catalogue");
@@ -49,6 +51,7 @@ function App() {
     if (confirmPassword !== regData.password) {
       return new Error("Password does not match");
     }
+
     try {
       const result = await authService.register(regData);
       setAuth(result);
@@ -59,7 +62,7 @@ function App() {
   };
 
   const onLogout = async () => {
-    await authService.logout(auth.accessToken);
+    await authService.logout();
     setAuth({});
   };
 

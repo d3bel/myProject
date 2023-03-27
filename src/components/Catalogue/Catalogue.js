@@ -4,7 +4,6 @@ import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 
-import { Items } from "./Items";
 import { AuthContext } from "../../context/AuthContext";
 
 export const Catalogue = ({ items }) => {
