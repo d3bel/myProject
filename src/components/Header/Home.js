@@ -10,7 +10,7 @@ export const Home = () => {
         <div className="row justify-content-start">
           <div className="col-lg-8 text-center text-lg-start">
             <h1 className="display-1 text-dark">
-              We Bring Your Home To Lively Colors
+              My nameless project
             </h1>
             <p className="fs-4 text-dark mb-4">
               Need to put some text/info HERE!

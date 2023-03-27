@@ -3,9 +3,8 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { AuthContext } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 // import { useTokenService } from "./hooks/useTokenService";
-import { AuthServiceFactory } from "./services/authService";
 import { itemServiceFactory } from "./services/itemServiceFactory";
 
 import { Header } from "./components/Header/Header";
@@ -20,78 +19,40 @@ import { AddItem } from "./components/Catalogue/AddItem";
 function App() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
-  const [auth, setAuth] = useState({});
-  const Service = itemServiceFactory(auth.accessToken);
-  const authService = AuthServiceFactory(auth.accessToken);
+
+  const Service = itemServiceFactory(); //(auth.accessToken);
 
   useEffect(() => {
-    Service.getAllItems().then((item) => setItems(item));
+    Service.getAllItems().then((result) => {
+      setItems(result);
+    });
   }, []);
 
   const onAddItemSubmit = async (itemData) => {
-    const newItem = await Service.create(itemData, auth.accessToken);
+    const newItem = await Service.create(itemData);
     console.log(newItem);
     setItems((state) => [...state, newItem]);
     navigate("/catalogue");
   };
 
-  const onLoginSubmit = async (data) => {
-    try {
-      const result = await authService.login(data);
-      setAuth(result);
-      return navigate("/");
-    } catch (err) {
-      console.error("there is an error");
-    }
-  };
-
-  const onRegisterSubmit = async (data) => {
-    const { confirmPassword, ...regData } = data;
-
-    if (confirmPassword !== regData.password) {
-      return new Error("Password does not match");
-    }
-
-    try {
-      const result = await authService.register(regData);
-      setAuth(result);
-      return navigate("/");
-    } catch (err) {
-      console.error("there is an error");
-    }
-  };
-
-  const onLogout = async () => {
-    await authService.logout();
-    setAuth({});
-  };
-
-  const contextData = {
-    onAddItemSubmit,
-    onRegisterSubmit,
-    onLoginSubmit,
-    onLogout,
-    userId: auth._id,
-    token: auth.accessToken,
-    email: auth.email,
-    isAuthenticated: !!auth.accessToken,
-  };
-
   return (
-    <AuthContext.Provider value={{ ...contextData }}>
+    <AuthProvider>
       <div>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalogue" element={<Catalogue items={items} />} />
-          <Route path="/catalogue/add-item" element={<AddItem />} />
+          <Route
+            path="/catalogue/add-item"
+            element={<AddItem onAddItemSubmit={onAddItemSubmit} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
         </Routes>
         <Footer />
       </div>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

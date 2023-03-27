@@ -11,9 +11,8 @@ export const itemServiceFactory = (token) => {
     return result;
   };
 
-  const create = async (data, token) => {
+  const create = async (data) => {
     const result = await request.post(`${baseUrl}/items`, data);
-    console.log(result);
 
     return result;
   };
