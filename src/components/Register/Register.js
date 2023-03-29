@@ -32,6 +32,7 @@ export const Register = () => {
   );
   const [role, setRole] = useState("");
   const onRoleHandler = (e) => {
+    changeHandler(e);
     setRole(e.target.value);
   };
   return (
@@ -165,7 +166,7 @@ export const Register = () => {
                 <Form.Check
                   type="radio"
                   label="Admin"
-                  onChange={(onRoleHandler, changeHandler)}
+                  onChange={onRoleHandler}
                   name={RegisterFormKeys.Role}
                   id="formHorizontalRadios1"
                   value="admin"
@@ -182,7 +183,7 @@ export const Register = () => {
                 <Form.Check
                   type="radio"
                   label="User"
-                  onChange={(changeHandler, onRoleHandler)}
+                  onChange={onRoleHandler}
                   name={RegisterFormKeys.Role}
                   id="formHorizontalRadios2"
                   value="user"

@@ -1,5 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useStorage } from "../hooks/useStorage";
 
 import { AuthServiceFactory } from "../services/authService";
 
@@ -7,7 +9,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useStorage("r", {});
   const authService = AuthServiceFactory(auth.accessToken);
 
   const onLoginSubmit = async (data) => {
@@ -58,4 +60,10 @@ export const AuthProvider = ({ children }) => {
       </AuthContext.Provider>
     </>
   );
+};
+
+export const useAuthContext = () => {
+  const context = useContext(AuthContext);
+
+  return context;
 };
