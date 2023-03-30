@@ -5,8 +5,8 @@ import Form from "react-bootstrap/Form";
 import { useForm } from "../../hooks/useForm";
 import { AuthContext } from "../../context/AuthContext";
 
-export const AddItem = () => {
-  const { onAddItemSubmit } = useContext(AuthContext);
+export const AddItem = ({ onAddItemSubmit }) => {
+  const { token } = useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm(
     {
       title: "",
@@ -15,9 +15,10 @@ export const AddItem = () => {
       imageUrl: "",
       description: "",
     },
-    onAddItemSubmit
+    onAddItemSubmit,
+    token
   );
-
+  console.log(values);
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
@@ -31,6 +32,7 @@ export const AddItem = () => {
           borderStyle: "groove",
           borderColor: "honeydew",
         }}
+        key={values._id}
       >
         <h1 style={{ width: "10%", margin: "0 auto" }}>Add Item</h1>
         <Form
@@ -47,6 +49,7 @@ export const AddItem = () => {
               value={values.title}
               onChange={changeHandler}
               placeholder="Enter Title"
+              required
             />
           </Form.Group>
 
@@ -58,6 +61,7 @@ export const AddItem = () => {
               value={values.category}
               onChange={changeHandler}
               placeholder="Enter Category"
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="imageUrl">
@@ -69,6 +73,7 @@ export const AddItem = () => {
               value={values.imageUrl}
               onChange={changeHandler}
               placeholder="Enter Image URL"
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="level">
@@ -79,6 +84,7 @@ export const AddItem = () => {
               value={values.level}
               onChange={changeHandler}
               placeholder="Enter Level"
+              required
             />
           </Form.Group>
 
@@ -92,6 +98,7 @@ export const AddItem = () => {
               value={values.description}
               onChange={changeHandler}
               placeholder="Enter Description"
+              required
             />
           </Form.Group>
           <Button variant="outline-warning" type="submit">

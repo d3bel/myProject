@@ -4,8 +4,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { AuthProvider } from "./context/AuthContext";
-// import { useTokenService } from "./hooks/useTokenService";
-import { itemServiceFactory } from "./services/itemServiceFactory";
+import { itemServiceFactory } from "./services/itemService";
 
 import { Header } from "./components/Header/Header";
 import { Catalogue } from "./components/Catalogue/Catalogue";
@@ -21,16 +20,19 @@ function App() {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
 
-  const service = itemServiceFactory(); //(auth.accessToken) Да се добави TOKEN;
+  const service = itemServiceFactory(); //(auth.accessToken)
 
   useEffect(() => {
-    service.getAllItems().then((result) => {
-      setItems(result);
-    });
+    service
+      .getAllItems()
+      .then((result) => {
+        setItems(result);
+      })
+      .catch(() => console.log("No Content"));
   }, []);
 
-  const onAddItemSubmit = async (itemData) => {
-    const newItem = await service.create(itemData);
+  const onAddItemSubmit = async (itemData, token) => {
+    const newItem = await itemServiceFactory(token).create(itemData);
     console.log(newItem);
     setItems((state) => [...state, newItem]);
     navigate("/catalogue");

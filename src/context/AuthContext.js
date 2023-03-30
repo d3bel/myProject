@@ -9,17 +9,13 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [auth, setAuth] = useStorage("r", {});
+  const [auth, setAuth] = useStorage("accT", {});
   const authService = AuthServiceFactory(auth.accessToken);
 
   const onLoginSubmit = async (data) => {
-    try {
-      const result = await authService.login(data);
-      setAuth(result);
-      return navigate("/");
-    } catch (err) {
-      console.error("there is an error");
-    }
+    const result = await authService.login(data);
+    setAuth(result);
+    return navigate("/");
   };
 
   const onRegisterSubmit = async (data) => {
@@ -29,13 +25,9 @@ export const AuthProvider = ({ children }) => {
       return new Error("Password does not match");
     }
 
-    try {
-      const result = await authService.register(regData);
-      setAuth(result);
-      return navigate("/");
-    } catch (err) {
-      console.error("there is an error");
-    }
+    const result = await authService.register(regData);
+    setAuth(result);
+    return navigate("/");
   };
 
   const onLogout = async () => {
