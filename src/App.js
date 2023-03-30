@@ -15,6 +15,7 @@ import { Footer } from "./components/Footer/Footer";
 import { Logout } from "./components/Logout/Logout";
 import { AddItem } from "./components/Catalogue/AddItem";
 import { Details } from "./components/Details/Details";
+import { Edit } from "./components/Details/Edit";
 
 function App() {
   const navigate = useNavigate();
@@ -54,7 +55,8 @@ function App() {
               <Catalogue items={items} onDetailSubmit={onDetailSubmit} />
             }
           />
-          <Route path="/catalogue/:id/details" element={<Details />} />
+          <Route path="/catalogue/:itemId" element={<Details />} />
+          <Route path="/catalogue/:itemId/edit" element={<Edit />} />
           <Route
             path="/catalogue/add-item"
             element={<AddItem onAddItemSubmit={onAddItemSubmit} />}

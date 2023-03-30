@@ -1,13 +1,9 @@
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { Link, useParams } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
 
 export const Items = ({ items }) => {
-  const { isAuthenticated, userId } = useContext(AuthContext);
-  // const onDetailsClick = () => {
 
-  // }
 
   return (
     <>
@@ -77,8 +73,7 @@ export const Items = ({ items }) => {
                 variant="outline-warning"
                 style={{ margin: 10 }}
                 as={Link}
-                to="/catalogue/:id/details"
-                // onClick={onDetailsClick}
+                to={`/catalogue/${item._id}`}
               >
                 {" "}
                 Details{" "}

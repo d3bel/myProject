@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export const Catalogue = ({ items, onDetailSubmit }) => {
   const { isAuthenticated } = useAuthContext();
-  console.log(isAuthenticated);
   return (
     // {items && (
     //   <div

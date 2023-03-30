@@ -4,7 +4,7 @@ export const useStorage = (key, initialValue) => {
   const [state, setState] = useState(() => {
     const serializedPersist = localStorage.getItem(key);
     if (serializedPersist) {
-      const persistState = JSON.stringify(serializedPersist);
+      const persistState = JSON.parse(serializedPersist);
       return persistState;
     }
     return initialValue;

@@ -6,15 +6,13 @@ export const itemServiceFactory = (token) => {
   const request = requestFactory(token);
 
   const getAllItems = async () => {
-    
       const res = await request.get(`${baseUrl}/items`);
       const result = Object.values(res);
       return result;
-    
   };
 
   const getOneItem = async (itemId) => {
-    const result = await request.get(`${baseUrl}/${itemId}`);
+    const result = await request.get(`${baseUrl}/items/${itemId}`);
 
     return result;
   };

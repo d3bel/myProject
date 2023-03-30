@@ -14,11 +14,12 @@ export const AddItem = ({ onAddItemSubmit }) => {
       level: "",
       imageUrl: "",
       description: "",
+      createOn: "",
     },
     onAddItemSubmit,
     token
   );
-  console.log(values);
+
   return (
     <div
       className="container-fluid bg-dark text-light py-5"

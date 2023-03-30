@@ -1,42 +1,45 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
+import { useAuthContext } from "../../context/AuthContext";
 
-import { commentsService } from "../../services/commentsService";
+// import Card from "react-bootstrap/Card";
+// import ListGroup from "react-bootstrap/ListGroup";
+
+// import { commentsService } from "../../services/commentsService";
 import { itemServiceFactory } from "../../services/itemService";
 import { useTokenService } from "../../hooks/useTokenService";
 
-import { AuthContext } from "../../context/AuthContext";
+// import { AuthContext } from "../../context/AuthContext";
 
 export const Details = () => {
-  const { userId } = useContext(AuthContext);
-  const [userFullName, setUserFullName] = useState("");
-  const [comment, setComment] = useState("");
-  const { key } = useParams();
+  const { itemId } = useParams();
+  const { isAuthenticated, userId } = useAuthContext();
+  // const [userFullName, setUserFullName] = useState("");
+  // const [comment, setComment] = useState("");
   const [item, setItem] = useState({});
   const itemService = useTokenService(itemServiceFactory);
   const navigate = useNavigate();
-  console.log(key);
 
-  // useEffect(() => {
-  //   itemService.getOneItem(itemId).then(
-  //     (result) => {
-  //       setItem(result);
-  //     },
-  //     [itemId]
-  //   );
-  // });
+  useEffect(() => {
+    itemService.getOneItem(itemId).then((result) => {
+      setItem(result);
+    });
+  }, [itemId]);
+  const isOwner = userId === item._ownerId;
 
-  const onCommentSubmit = async (e) => {
-    e.preventDefault();
-
-    // const result = await commentsService.createComment(itemId, {
-    //   username,
-    //   comment,
-    // });
+  const onRemoveItem = async () => {
+    await itemService.deleteItem(itemId);
+    navigate("/catalogue");
   };
+  // const onCommentSubmit = async (e) => {
+  //   e.preventDefault();
+
+  // const result = await commentsService.createComment(itemId, {
+  //   username,
+  //   comment,
+  // });
+  // };
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
@@ -46,27 +49,27 @@ export const Details = () => {
         <div className="container py-5">
           <div className="row g-3 justify-content-center">
             <div className="col-lg-6">
-              {/* <!-- Blog Detail Start --> */}
+              {/* <!-- Item Detail Start --> */}
               <div
-                className="blog-item bg-secondary"
+                className="item-details bg-secondary"
                 style={{
                   margin: "10px",
                   borderStyle: "groove",
                   borderColor: "honeydew",
                 }}
               >
-                <img className="img-fluid w-100" src={"/logo192.png"} alt="" />
+                <img className="img-fluid w-100" src={item.imageUrl} alt="" />
                 <div className="d-flex align-items-center">
                   <div
                     className="bg-secondary mt-n4 d-flex flex-column flex-shrink-0 justify-content-center text-center me-4"
                     style={{ width: "60px", height: "100px" }}
                   >
                     <i className="fa fa-calendar-alt text-primary mb-2"></i>
-                    <p className="m-0 text-black">Jan 01</p>
-                    <small className="text-black">2045</small>
+                    <p className="m-0 text-black">date</p>
+                    <small className="text-black">date</small>
                   </div>
                   <div className="h4 m-0 text-white me-4">
-                    {/* '{item.description}' */} Discription here
+                    {item.description}
                   </div>
                 </div>
                 <div className="d-flex justify-content-between border-top border-secondary p-4">
@@ -91,17 +94,29 @@ export const Details = () => {
                     </small>
                   </div>
                 </div>
-                <div className="text-left m-2">Category: non yet</div>
-                <div className="text-left m-2">max Level: 10</div>
-                <Button
-                  variant="outline-warning"
-                  style={{ margin: 10 }}
-                  as={Link}
-                  to="/catalogue/:id/details"
-                >
-                  {" "}
-                  Details{" "}
-                </Button>
+                <div className="text-left m-2">Category: {item.category}</div>
+                <div className="text-left m-2">max Level: {item.level}</div>
+                {isOwner && (
+                  <>
+                    <Button
+                      className="btn-secondary rounded-pill"
+                      variant="outline-warning"
+                      style={{ margin: 10 }}
+                      as={Link}
+                      to={`/catalogue/${itemId}/edit`}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      className="btn-secondary rounded-pill"
+                      variant="outline-warning"
+                      style={{ margin: 10 }}
+                      onClick={onRemoveItem}
+                    >
+                      Remove
+                    </Button>
+                  </>
+                )}
                 {/* <div className="mb-5">
                 <img
                   className="img-fluid w-100 mb-5"
@@ -144,140 +159,143 @@ export const Details = () => {
                 </p>
               </div> */}
                 {/* <!-- Blog Detail End --> */}
-
-                {/* <!-- Comment List Start --> */}
-                <div
-                  className="mb-5"
-                  style={{
-                    margin: "10px",
-                    borderBottom: "2px dashed honeydew",
-                    borderTop: "2px dashed honeydew",
-                  }}
-                >
-                  <h3 className="mb-4 mt-4">3 Comments</h3>
-                  <div
-                    className="container d-flex mb-4"
-                    style={{
-                      margin: "5px",
-                      borderBottom: "1px solid honeydew",
-                      borderTop: "1px solid honeydew",
-                    }}
-                  >
-                    <img
-                      src="img/user.jpg"
-                      className="img-fluid m-2"
-                      style={{ width: "45px", height: "45px" }}
-                      alt=""
-                    />
-                    <div className="ps-3 m-2">
-                      <h6>
-                        <Link to="">John Doe</Link>{" "}
-                        <small>
-                          <i>01 Jan 2045</i>
-                        </small>
-                      </h6>
-                      <p>
-                        Diam amet duo labore stet elitr invidunt ea clita ipsum
-                        voluptua, tempor labore accusam ipsum et no at. Kasd
-                        diam tempor rebum magna dolores sed eirmod
-                      </p>
-                      <button className="btn btn-sm btn-secondary rounded-pill px-3">
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                  <div className="d-flex mb-4">
-                    <img
-                      src="img/user.jpg"
-                      className="img-fluid"
-                      style={{ width: "45px", height: "45px" }}
-                      alt=""
-                    />
-                    <div className="ps-3">
-                      <h6>
-                        <Link to="">John Doe</Link>{" "}
-                        <small>
-                          <i>01 Jan 2045</i>
-                        </small>
-                      </h6>
-                      <p>
-                        Diam amet duo labore stet elitr invidunt ea clita ipsum
-                        voluptua, tempor labore accusam ipsum et no at. Kasd
-                        diam tempor rebum magna dolores sed eirmod
-                      </p>
-                      <button className="btn btn-sm btn-secondary rounded-pill px-3">
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                  <div className="d-flex ms-5 mb-4">
-                    <img
-                      src="img/user.jpg"
-                      className="img-fluid"
-                      style={{ width: "45px", height: "45px" }}
-                      alt=""
-                    />
-                    <div className="ps-3">
-                      <h6>
-                        <Link to="">John Doe</Link>{" "}
-                        <small>
-                          <i>01 Jan 2045</i>
-                        </small>
-                      </h6>
-                      <p>
-                        Diam amet duo labore stet elitr invidunt ea clita ipsum
-                        voluptua, tempor labore accusam ipsum et no at. Kasd
-                        diam tempor rebum magna dolores sed eirmod
-                      </p>
-                      <button className="btn btn-sm btn-secondary rounded-pill px-3">
-                        Reply
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                {/* <!-- Comment List End --> */}
-
-                {/* <!-- Comment Form Start --> */}
-                <div className="bg-secondary p-5">
-                  <h3 className="mb-4">Leave Link comment</h3>
-                  <form>
-                    <div className="row g-3">
-                      <div className="col-12 col-sm-6">
-                        <input
-                          type="text"
-                          className="form-control bg-white border-0"
-                          placeholder="Your Name"
-                          style={{ height: "55px" }}
+                {isAuthenticated && (
+                  <>
+                    {/* <!-- Comment List Start --> */}
+                    <div
+                      className="mb-5"
+                      style={{
+                        margin: "10px",
+                        borderBottom: "2px dashed honeydew",
+                        borderTop: "2px dashed honeydew",
+                      }}
+                    >
+                      <h3 className="mb-4 mt-4">3 Comments</h3>
+                      <div
+                        className="container d-flex mb-4"
+                        style={{
+                          margin: "5px",
+                          borderBottom: "1px solid honeydew",
+                          borderTop: "1px solid honeydew",
+                        }}
+                      >
+                        <img
+                          src="img/user.jpg"
+                          className="img-fluid m-2"
+                          style={{ width: "45px", height: "45px" }}
+                          alt=""
                         />
+                        <div className="ps-3 m-2">
+                          <h6>
+                            <Link to="">John Doe</Link>{" "}
+                            <small>
+                              <i>01 Jan 2045</i>
+                            </small>
+                          </h6>
+                          <p>
+                            Diam amet duo labore stet elitr invidunt ea clita
+                            ipsum voluptua, tempor labore accusam ipsum et no
+                            at. Kasd diam tempor rebum magna dolores sed eirmod
+                          </p>
+                          <button className="btn btn-sm btn-secondary rounded-pill px-3">
+                            Reply
+                          </button>
+                        </div>
                       </div>
-                      <div className="col-12 col-sm-6">
-                        <input
-                          type="email"
-                          className="form-control bg-white border-0"
-                          placeholder="Your Email"
-                          style={{ height: "55px" }}
+                      <div className="d-flex mb-4">
+                        <img
+                          src="img/user.jpg"
+                          className="img-fluid"
+                          style={{ width: "45px", height: "45px" }}
+                          alt=""
                         />
+                        <div className="ps-3">
+                          <h6>
+                            <Link to="">John Doe</Link>{" "}
+                            <small>
+                              <i>01 Jan 2045</i>
+                            </small>
+                          </h6>
+                          <p>
+                            Diam amet duo labore stet elitr invidunt ea clita
+                            ipsum voluptua, tempor labore accusam ipsum et no
+                            at. Kasd diam tempor rebum magna dolores sed eirmod
+                          </p>
+                          <button className="btn btn-sm btn-secondary rounded-pill px-3">
+                            Reply
+                          </button>
+                        </div>
                       </div>
-
-                      <div className="col-12">
-                        <textarea
-                          className="form-control bg-white border-0"
-                          rows="5"
-                          placeholder="Comment"
-                        ></textarea>
-                      </div>
-                      <div className="col-12">
-                        <Button
-                          className="btn btn-success w-100 py-3"
-                          type="submit"
-                        >
-                          Leave Your Comment
-                        </Button>
+                      <div className="d-flex ms-5 mb-4">
+                        <img
+                          src="img/user.jpg"
+                          className="img-fluid"
+                          style={{ width: "45px", height: "45px" }}
+                          alt=""
+                        />
+                        <div className="ps-3">
+                          <h6>
+                            <Link to="">John Doe</Link>{" "}
+                            <small>
+                              <i>01 Jan 2045</i>
+                            </small>
+                          </h6>
+                          <p>
+                            Diam amet duo labore stet elitr invidunt ea clita
+                            ipsum voluptua, tempor labore accusam ipsum et no
+                            at. Kasd diam tempor rebum magna dolores sed eirmod
+                          </p>
+                          <button className="btn btn-sm btn-secondary rounded-pill px-3">
+                            Reply
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </form>
-                </div>
-                {/* <!-- Comment Form End --> */}
+                    {/* <!-- Comment List End --> */}
+
+                    {/* <!-- Comment Form Start --> */}
+                    <div className="bg-secondary p-5">
+                      <h3 className="mb-4">Leave Link comment</h3>
+                      <form>
+                        <div className="row g-3">
+                          <div className="col-12 col-sm-6">
+                            <input
+                              type="text"
+                              className="form-control bg-white border-0"
+                              placeholder="Your Name"
+                              style={{ height: "55px" }}
+                            />
+                          </div>
+                          <div className="col-12 col-sm-6">
+                            <input
+                              type="email"
+                              className="form-control bg-white border-0"
+                              placeholder="Your Email"
+                              style={{ height: "55px" }}
+                            />
+                          </div>
+
+                          <div className="col-12">
+                            <textarea
+                              className="form-control bg-white border-0"
+                              rows="5"
+                              placeholder="Comment"
+                            ></textarea>
+                          </div>
+                          <div className="col-12">
+                            <Button
+                              className="btn btn-success w-100 py-3"
+                              type="submit"
+                            >
+                              Leave Your Comment
+                            </Button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    {/* <!-- Comment Form End --> */}
+                  </>
+                )}
               </div>
             </div>
           </div>
