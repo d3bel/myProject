@@ -6,6 +6,15 @@ import { useForm } from "../../hooks/useForm";
 import { AuthContext } from "../../context/AuthContext";
 
 export const AddItem = ({ onAddItemSubmit }) => {
+  const currentDate = new Date();
+  const formattedDate = currentDate
+    .toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }).split(", ")
+    
+
   const { token } = useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm(
     {
@@ -17,7 +26,8 @@ export const AddItem = ({ onAddItemSubmit }) => {
       createOn: "",
     },
     onAddItemSubmit,
-    token
+    token,
+    formattedDate
   );
 
   return (

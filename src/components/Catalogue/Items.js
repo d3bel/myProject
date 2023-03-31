@@ -36,8 +36,8 @@ export const Items = ({ items }) => {
                   style={{ width: "60px", height: "100px" }}
                 >
                   <i className="fa fa-calendar-alt text-primary mb-2"></i>
-                  <p className="m-0 text-black">Jan 01</p>
-                  <small className="text-black">2045</small>
+                  <p className="m-0 text-black">{item.createOn}</p>
+                  <small className="text-black">{item.createOn}</small>
                 </div>
                 <div className="h4 m-0 text-white me-4">{item.description}</div>
                 <div className="m-0 text-white me-4">

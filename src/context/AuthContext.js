@@ -31,8 +31,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   const onLogout = async () => {
-    await authService.logout();
-    setAuth({});
+    try {
+      await authService.logout();
+      localStorage.removeItem(auth.accessToken);
+      setAuth({});
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const contextData = {

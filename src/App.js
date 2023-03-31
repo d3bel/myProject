@@ -4,7 +4,6 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { AuthProvider } from "./context/AuthContext";
-import { itemServiceFactory } from "./services/itemService";
 
 import { Header } from "./components/Header/Header";
 import { Catalogue } from "./components/Catalogue/Catalogue";
@@ -16,6 +15,7 @@ import { Logout } from "./components/Logout/Logout";
 import { AddItem } from "./components/Catalogue/AddItem";
 import { Details } from "./components/Details/Details";
 import { Edit } from "./components/Details/Edit";
+import { itemServiceFactory } from "./services/itemService";
 
 function App() {
   const navigate = useNavigate();
@@ -34,13 +34,13 @@ function App() {
 
   const onAddItemSubmit = async (itemData, token) => {
     const newItem = await itemServiceFactory(token).create(itemData);
-    console.log(newItem);
+    // console.log(itemData);
     setItems((state) => [...state, newItem]);
     navigate("/catalogue");
   };
 
   const onDetailSubmit = (itemData) => {
-    console.log(itemData);
+    // console.log(itemData);
   };
 
   return (

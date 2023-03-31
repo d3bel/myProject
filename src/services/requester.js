@@ -17,21 +17,22 @@ const request = async (method, token, url, data) => {
       "X-Authorization": token,
     };
   }
+  try {
+    const response = await fetch(url, options);
 
-  const response = await fetch(url, options);
+    if (response.status === 204) {
+      return {};
+    }
 
-  if (response.status === 204) {
-    return {};
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw result;
+    }
+    return result;
+  } catch (err) {
+    console.log(err.message);
   }
-
-
-
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw result;
-  }
-  return result;
 };
 
 export const requestFactory = (token) => {

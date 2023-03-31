@@ -1,24 +1,17 @@
 import { useState } from "react";
 
-export const useForm = (initialValues, onSubmitHandler, token) => {
+export const useForm = (initialValues, onSubmitHandler, token, date) => {
   const [values, setValues] = useState(initialValues);
 
   const changeHandler = (e) => {
-    const currentDate = new Date();
-    const formattedDate = currentDate
-      .toLocaleDateString("en-US", {
-        month: "short",
-        day: "2-digit",
-        year: "numeric",
-      })
-      .split(", ")
-      .join(" ");
-
-    setValues((state) => ({
-      ...state,
-      [e.target.name]: e.target.value,
-      createOn: formattedDate,
-    }));
+    if (date) {
+      return setValues((state) => ({
+        ...state,
+        [e.target.name]: e.target.value,
+        createOn: date,
+      }));
+    }
+    setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
   const onSubmit = (e) => {
     e.preventDefault();
