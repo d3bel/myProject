@@ -9,14 +9,11 @@ export const Edit = () => {
   const { itemId } = useParams();
 
   const { item, token } = useItem(itemId);
-  const { title, category, level, imageUrl, description, createOn } = {
-    ...item,
-  };
-  console.log(title, category, level, imageUrl, description, createOn);
 
   const { onEditItemSubmit } = useItemContext();
 
   const currentDate = new Date();
+
   const formattedDate = currentDate
     .toLocaleDateString("en-US", {
       month: "short",

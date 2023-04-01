@@ -2,13 +2,16 @@ import { useState, useEffect, useContext, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { itemServiceFactory } from "../services/itemService";
+import { useTokenService } from "../hooks/useTokenService";
 
 export const ItemContext = createContext();
 
 export const ItemProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
-
   const navigate = useNavigate();
+
+  const itemService = useTokenService(itemServiceFactory);
+
+  const [items, setItems] = useState([]);
 
   const service = itemServiceFactory();
 
@@ -23,7 +26,6 @@ export const ItemProvider = ({ children }) => {
 
   const onAddItemSubmit = async (itemData, token) => {
     const newItem = await itemServiceFactory(token).create(itemData);
-    // console.log(itemData);
     setItems((state) => [...state, newItem]);
     navigate("/catalogue");
   };
@@ -31,7 +33,10 @@ export const ItemProvider = ({ children }) => {
   const onEditItemSubmit = async (itemData, token) => {
     try {
       const itemId = itemData._id;
-      const editedItem = await itemServiceFactory(token).editItem(itemId, itemData);
+      const editedItem = await itemServiceFactory(token).editItem(
+        itemId,
+        itemData
+      );
 
       setItems((items) =>
         items.map((item) => (item._id === itemId ? editedItem : item))
@@ -43,13 +48,25 @@ export const ItemProvider = ({ children }) => {
     }
   };
 
-  const onDetailSubmit = (itemData) => {
-    // console.log(itemData);
+  const onRemoveItem = async (itemId) => {
+    try {
+      await itemService.deleteItem(itemId);
+      setItems((items) => items.filter((item) => item._id !== itemId));
+      navigate("/catalogue");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+
+  const getItem = (itemId) => {
+    return items.find((item) => item._id === itemId);
+  };
+
   const contextData = {
     onAddItemSubmit,
     onEditItemSubmit,
-    onDetailSubmit,
+    onRemoveItem,
+    getItem,
     items,
   };
   return (

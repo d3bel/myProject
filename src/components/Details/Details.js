@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
@@ -6,13 +7,24 @@ import { Button } from "react-bootstrap";
 
 // import { commentsService } from "../../services/commentsService";
 import { useItem } from "../../hooks/useItem";
+import { useItemContext } from "../../context/ItemContext";
 
 // import { AuthContext } from "../../context/AuthContext";
 
 export const Details = () => {
   const { itemId } = useParams();
+  const { item, isAuthenticated, isOwner } = useItem(itemId);
+  const { onRemoveItem } = useItemContext();
+  const [confirmation, setConfirmation] = useState(false);
 
-  const { item, isAuthenticated, isOwner, onRemoveItem } = useItem(itemId);
+  const handleRemove = () => {
+    setConfirmation(true);
+  };
+
+  const onRemoveItemHandler = () => {
+    onRemoveItem(itemId);
+    setConfirmation(false);
+  };
 
   // const [userFullName, setUserFullName] = useState("");
   // const [comment, setComment] = useState("");
@@ -96,10 +108,31 @@ export const Details = () => {
                       className="btn-secondary rounded-pill"
                       variant="outline-warning"
                       style={{ margin: 10 }}
-                      onClick={onRemoveItem}
+                      onClick={handleRemove}
                     >
                       Remove
                     </Button>
+                    {confirmation && (
+                      <div className="container text-center">
+                        <p style={{ color: "firebrick" }}>
+                          Are you sure you want to remove this item?
+                        </p>
+                        <Button
+                          className="btn-secondary rounded-pill"
+                          variant="danger"
+                          onClick={onRemoveItemHandler}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          className="btn-secondary rounded-pill"
+                          variant="success"
+                          onClick={() => setConfirmation(false)}
+                        >
+                          No
+                        </Button>
+                      </div>
+                    )}
                   </>
                 )}
                 {/* <div className="mb-5">

@@ -1,10 +1,14 @@
 const request = async (method, token, url, data) => {
-  const options = { method, headers: {} };
-  if (data) {
-    options.headers = {
-      "content-type": "application/json",
-    };
-    options.body = JSON.stringify(data);
+  const options = {};
+
+  if (method !== "GET") {
+    options.method = method;
+    if (data) {
+      options.headers = {
+        "content-type": "application/json",
+      };
+      options.body = JSON.stringify(data);
+    }
   }
 
   if (token) {

@@ -15,6 +15,8 @@ import { Logout } from "./components/Logout/Logout";
 import { AddItem } from "./components/Catalogue/AddItem";
 import { Details } from "./components/Details/Details";
 import { Edit } from "./components/Details/Edit";
+import { RoutingGuard } from "./components/common/RoutingGuard";
+import { OwnerGuard } from "./components/common/OwnerGuard";
 
 function App() {
   return (
@@ -24,13 +26,22 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/catalogue" element={<Catalogue />} />
-            <Route path="/catalogue/:itemId" element={<Details />} />
-            <Route path="/catalogue/edit/:itemId" element={<Edit />} />
-            <Route path="/catalogue/add-item" element={<AddItem />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/logout" element={<Logout />} />
+            <Route path="/catalogue" element={<Catalogue />} />
+            <Route path="/catalogue/:itemId" element={<Details />} />
+            <Route element={<RoutingGuard />}>
+              <Route path="/catalogue/add-item" element={<AddItem />} />
+              <Route
+                path="/catalogue/edit/:itemId"
+                element={
+                  <OwnerGuard>
+                    <Edit />
+                  </OwnerGuard>
+                }
+              />
+              <Route path="/logout" element={<Logout />} />
+            </Route>
           </Routes>
           <Footer />
         </div>
