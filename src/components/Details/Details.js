@@ -1,37 +1,22 @@
-import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { useAuthContext } from "../../context/AuthContext";
 
 // import Card from "react-bootstrap/Card";
 // import ListGroup from "react-bootstrap/ListGroup";
 
 // import { commentsService } from "../../services/commentsService";
-import { itemServiceFactory } from "../../services/itemService";
-import { useTokenService } from "../../hooks/useTokenService";
+import { useItem } from "../../hooks/useItem";
 
 // import { AuthContext } from "../../context/AuthContext";
 
 export const Details = () => {
   const { itemId } = useParams();
-  const { isAuthenticated, userId } = useAuthContext();
+
+  const { item, isAuthenticated, isOwner, onRemoveItem } = useItem(itemId);
+
   // const [userFullName, setUserFullName] = useState("");
   // const [comment, setComment] = useState("");
-  const [item, setItem] = useState({});
-  const itemService = useTokenService(itemServiceFactory);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    itemService.getOneItem(itemId).then((result) => {
-      setItem(result);
-    });
-  }, [itemId]);
-  const isOwner = userId === item._ownerId;
-
-  const onRemoveItem = async () => {
-    await itemService.deleteItem(itemId);
-    navigate("/catalogue");
-  };
   // const onCommentSubmit = async (e) => {
   //   e.preventDefault();
 
@@ -103,7 +88,7 @@ export const Details = () => {
                       variant="outline-warning"
                       style={{ margin: 10 }}
                       as={Link}
-                      to={`/catalogue/${itemId}/edit`}
+                      to={`/catalogue/edit/${itemId}`}
                     >
                       Edit
                     </Button>

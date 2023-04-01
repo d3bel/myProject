@@ -11,14 +11,18 @@ export const useForm = (initialValues, onSubmitHandler, token, date) => {
         createOn: date,
       }));
     }
+
     setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (token) {
       return onSubmitHandler(values, token);
     }
     onSubmitHandler(values);
+    setValues(initialValues);
   };
+
   return { values, changeHandler, onSubmit };
 };

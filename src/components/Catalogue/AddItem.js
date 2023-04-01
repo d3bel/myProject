@@ -1,21 +1,22 @@
-import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 import { useForm } from "../../hooks/useForm";
-import { AuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext";
+import { useItemContext } from "../../context/ItemContext";
 
-export const AddItem = ({ onAddItemSubmit }) => {
+export const AddItem = () => {
+  const { onAddItemSubmit } = useItemContext();
+  const { token } = useAuthContext();
   const currentDate = new Date();
   const formattedDate = currentDate
     .toLocaleDateString("en-US", {
       month: "short",
       day: "2-digit",
       year: "numeric",
-    }).split(", ")
-    
+    })
+    .split(", ");
 
-  const { token } = useContext(AuthContext);
   const { values, changeHandler, onSubmit } = useForm(
     {
       title: "",

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { AuthProvider } from "./context/AuthContext";
+import { ItemProvider } from "./context/ItemContext";
 
 import { Header } from "./components/Header/Header";
 import { Catalogue } from "./components/Catalogue/Catalogue";
@@ -15,58 +15,26 @@ import { Logout } from "./components/Logout/Logout";
 import { AddItem } from "./components/Catalogue/AddItem";
 import { Details } from "./components/Details/Details";
 import { Edit } from "./components/Details/Edit";
-import { itemServiceFactory } from "./services/itemService";
 
 function App() {
-  const navigate = useNavigate();
-  const [items, setItems] = useState([]);
-
-  const service = itemServiceFactory(); //(auth.accessToken)
-
-  useEffect(() => {
-    service
-      .getAllItems()
-      .then((result) => {
-        setItems(result);
-      })
-      .catch(() => console.log("No Content"));
-  }, []);
-
-  const onAddItemSubmit = async (itemData, token) => {
-    const newItem = await itemServiceFactory(token).create(itemData);
-    // console.log(itemData);
-    setItems((state) => [...state, newItem]);
-    navigate("/catalogue");
-  };
-
-  const onDetailSubmit = (itemData) => {
-    // console.log(itemData);
-  };
-
   return (
     <AuthProvider>
-      <div>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/catalogue"
-            element={
-              <Catalogue items={items} onDetailSubmit={onDetailSubmit} />
-            }
-          />
-          <Route path="/catalogue/:itemId" element={<Details />} />
-          <Route path="/catalogue/:itemId/edit" element={<Edit />} />
-          <Route
-            path="/catalogue/add-item"
-            element={<AddItem onAddItemSubmit={onAddItemSubmit} />}
-          />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/logout" element={<Logout />} />
-        </Routes>
-        <Footer />
-      </div>
+      <ItemProvider>
+        <div>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalogue" element={<Catalogue />} />
+            <Route path="/catalogue/:itemId" element={<Details />} />
+            <Route path="/catalogue/edit/:itemId" element={<Edit />} />
+            <Route path="/catalogue/add-item" element={<AddItem />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout />} />
+          </Routes>
+          <Footer />
+        </div>
+      </ItemProvider>
     </AuthProvider>
   );
 }

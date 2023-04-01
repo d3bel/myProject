@@ -3,9 +3,12 @@ import Button from "react-bootstrap/Button";
 
 import { Items } from "./Items";
 import { useAuthContext } from "../../context/AuthContext";
+import { useItemContext } from "../../context/ItemContext";
 
-export const Catalogue = ({ items, onDetailSubmit }) => {
+export const Catalogue = () => {
   const { isAuthenticated } = useAuthContext();
+  const { items } = useItemContext();
+
   return (
     <div
       className="container-fluid bg-dark text-light py-5"

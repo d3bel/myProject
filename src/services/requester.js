@@ -1,14 +1,10 @@
 const request = async (method, token, url, data) => {
-  const options = {};
-
-  if (method !== "GET") {
-    options.method = method;
-    if (data) {
-      options.headers = {
-        "content-type": "application/json",
-      };
-      options.body = JSON.stringify(data);
-    }
+  const options = { method, headers: {} };
+  if (data) {
+    options.headers = {
+      "content-type": "application/json",
+    };
+    options.body = JSON.stringify(data);
   }
 
   if (token) {
@@ -19,6 +15,9 @@ const request = async (method, token, url, data) => {
   }
   try {
     const response = await fetch(url, options);
+    if (response.status === 403) {
+      return {};
+    }
 
     if (response.status === 204) {
       return {};

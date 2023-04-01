@@ -42,14 +42,15 @@ export const Header = () => {
               id="basic-nav-dropdown"
               menuVariant="dark"
             >
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
+              <NavDropdown.Item as={Link} to="/catalogue">
+                Catalogue
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/my-profile">
+                My Profile
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
+              <NavDropdown.Item as={Link} to="/logout">
+                Logout
               </NavDropdown.Item>
             </NavDropdown>
             {isAuthenticated && (

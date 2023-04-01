@@ -35,8 +35,9 @@ export const AuthProvider = ({ children }) => {
       await authService.logout();
       localStorage.removeItem(auth.accessToken);
       setAuth({});
+
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 

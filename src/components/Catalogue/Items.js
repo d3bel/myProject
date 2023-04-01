@@ -1,10 +1,7 @@
 import Button from "react-bootstrap/Button";
-import { Link, useParams } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export const Items = ({ items }) => {
-
-
   return (
     <>
       <div
@@ -80,27 +77,7 @@ export const Items = ({ items }) => {
               </Button>
             </div>
           ))}
-          {/* {isAuthenticated && (
-            <div className="col-12 text-end">
-              <Button
-                variant="outline-warning"
-                as={Link}
-                to="/catalogue/add-item"
-                className="btn btn-secondary rounded-pill py-md-3 px-md-5 mt-4"
-              >
-                Add Item
-              </Button>
-            </div>
-          )} */}
         </div>
-        {/* <div className="col-12 text-center">
-          <Link
-            to=""
-            className="btn btn-secondary rounded-pill py-md-3 px-md-5 mt-4"
-          >
-            Load More
-          </Link>
-        </div> */}
       </div>
     </>
   );

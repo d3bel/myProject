@@ -1,11 +1,45 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link, useParams } from "react-router-dom";
-import { itemServiceFactory } from "../../services/itemService";
+import { useForm } from "../../hooks/useForm";
+import { useItem } from "../../hooks/useItem";
+import { useItemContext } from "../../context/ItemContext";
 
 export const Edit = () => {
-  const itemId = useParams();
-  
+  const { itemId } = useParams();
+
+  const { item, token } = useItem(itemId);
+  const { title, category, level, imageUrl, description, createOn } = {
+    ...item,
+  };
+  console.log(title, category, level, imageUrl, description, createOn);
+
+  const { onEditItemSubmit } = useItemContext();
+
+  const currentDate = new Date();
+  const formattedDate = currentDate
+    .toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    })
+    .split(", ");
+
+  const { values, changeHandler, onSubmit } = useForm(
+    {
+      title: "",
+      category: "",
+      level: "",
+      imageUrl: "",
+      description: "",
+      createOn: "",
+    },
+    onEditItemSubmit,
+    token,
+    formattedDate,
+    item
+  );
+
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
@@ -19,22 +53,22 @@ export const Edit = () => {
           borderStyle: "groove",
           borderColor: "honeydew",
         }}
-        //   key={values._id}
+        key={item._id}
       >
         <h1 style={{ width: "10%", margin: "0 auto" }}>Edit Item</h1>
         <Form
           id="add-item"
           className="mb-3"
           style={{ marginLeft: "15px", width: "80%" }}
-          // onSubmit={onSubmit}
+          onSubmit={onSubmit}
         >
           <Form.Group controlId="title">
             <Form.Label>Title:</Form.Label>
             <Form.Control
               type="text"
               name="title"
-              value="" //{values.title}
-              // onChange={changeHandler}
+              value={values.title}
+              onChange={changeHandler}
               placeholder="Enter Title"
               required
             />
@@ -45,8 +79,8 @@ export const Edit = () => {
             <Form.Control
               type="text"
               name="category"
-              value="" //{values.category}
-              // onChange={changeHandler}
+              value={values.category}
+              onChange={changeHandler}
               placeholder="Enter Category"
               required
             />
@@ -57,8 +91,8 @@ export const Edit = () => {
               as="input"
               type="text"
               name="imageUrl"
-              value="" //{values.imageUrl}
-              // onChange={changeHandler}
+              value={values.imageUrl}
+              onChange={changeHandler}
               placeholder="Enter Image URL"
               required
             />
@@ -68,8 +102,8 @@ export const Edit = () => {
             <Form.Control
               type="number"
               name="level"
-              value="" //{values.level}
-              // onChange={changeHandler}
+              value={values.level}
+              onChange={changeHandler}
               placeholder="Enter Level"
               required
             />
@@ -82,8 +116,8 @@ export const Edit = () => {
               rows={5}
               type="text"
               name="description"
-              value="" //{values.description}
-              // onChange={changeHandler}
+              value={values.description}
+              onChange={changeHandler}
               placeholder="Enter Description"
               required
             />
@@ -101,7 +135,7 @@ export const Edit = () => {
             style={{ margin: 20 }}
             type="submit"
             as={Link}
-            to={`/catalogue/${itemId}`}
+            to={`/catalogue/${item._id}`}
           >
             Edit Cancel
           </Button>
