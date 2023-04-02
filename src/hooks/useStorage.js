@@ -3,11 +3,16 @@ import { useState } from "react";
 export const useStorage = (key, initialValue) => {
   const [state, setState] = useState(() => {
     const serializedPersist = localStorage.getItem(key);
+    if (
+      !typeof serializedPersist === "undefined" ||
+      !typeof serializedPersist === "null"
+    ) {
+      return initialValue;
+    }
     if (serializedPersist) {
       const persistState = JSON.parse(serializedPersist);
       return persistState;
     }
-    return initialValue;
   });
 
   const storageState = (value) => {

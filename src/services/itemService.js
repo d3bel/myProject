@@ -3,25 +3,37 @@ import { requestFactory } from "./requester";
 const baseUrl = "http://localhost:3030/data";
 
 export const itemServiceFactory = (token) => {
-  
   const request = requestFactory(token);
 
   const getAllItems = async () => {
-    const res = await request.get(`${baseUrl}/items`);
-    const result = Object.values(res);
-    return result;
+    try {
+      const res = await request.get(`${baseUrl}/items`);
+      if (!res) {
+        return;
+      }
+      const result = Object.values(res);
+      return result;
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const getOneItem = async (itemId) => {
-    const result = await request.get(`${baseUrl}/items/${itemId}`);
-
-    return result;
+    try {
+      const result = await request.get(`${baseUrl}/items/${itemId}`);
+      return result;
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const create = async (data) => {
-    const result = await request.post(`${baseUrl}/items/`, data);
-
-    return result;
+    try {
+      const result = await request.post(`${baseUrl}/items/`, data);
+      return result;
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   // const addComment = async (itemId, data) => {
   //   const result = await request.post(`${baseUrl}/${itemId}/comments`, data);
@@ -29,10 +41,21 @@ export const itemServiceFactory = (token) => {
   //   return result;
   // };
 
-  const editItem = async (itemId, data) =>
-    request.put(`${baseUrl}/items/${itemId}`, data);
+  const editItem = async (itemId, data) => {
+    try {
+      await request.put(`${baseUrl}/items/${itemId}`, data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  const deleteItem = async (itemId) => request.delete(`${baseUrl}/items/${itemId}`);
+  const deleteItem = async (itemId) => {
+    try {
+      request.delete(`${baseUrl}/items/${itemId}`);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   return {
     getAllItems,

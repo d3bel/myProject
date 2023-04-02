@@ -32,10 +32,7 @@ export const ItemProvider = ({ children }) => {
 
   const onEditItemSubmit = async (id, itemData, token) => {
     try {
-      const editedItem = await itemServiceFactory(token).editItem(
-        id,
-        itemData
-      );
+      const editedItem = await itemServiceFactory(token).editItem(id, itemData);
       setItems((items) =>
         items.map((item) => (item._id === id ? editedItem : item))
       );

@@ -1,27 +1,31 @@
 const request = async (method, token, url, data) => {
-  try {
-    const options = {};
+  const options = {};
 
-    if (method !== "GET") {
-      options.method = method;
-      if (data) {
-        options.headers = {
-          "content-type": "application/json",
-        };
-        options.body = JSON.stringify(data);
-      }
-    }
-
-    if (token) {
+  if (method !== "GET") {
+    options.method = method;
+    if (data) {
       options.headers = {
-        ...options.headers,
-        "X-Authorization": token,
+        "content-type": "application/json",
       };
+      options.body = JSON.stringify(data);
     }
+  }
 
+  if (token) {
+    options.headers = {
+      ...options.headers,
+      "X-Authorization": token,
+    };
+  }
+
+  try {
     const response = await fetch(url, options);
+
     if (response.status === 403) {
-      throw new Error("Error fetching");
+      return new Error("Error fetching");
+    }
+    if (response.status === 409) {
+      return new Error("Conflict fetching");
     }
 
     if (response.status === 204) {
