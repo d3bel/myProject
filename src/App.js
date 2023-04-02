@@ -11,7 +11,6 @@ import { Login } from "./components/Login/Login";
 import { Register } from "./components/Register/Register";
 import { Home } from "./components/Home/Home";
 import { Footer } from "./components/Footer/Footer";
-import { Logout } from "./components/Logout/Logout";
 import { AddItem } from "./components/Catalogue/AddItem";
 import { Details } from "./components/Details/Details";
 import { Edit } from "./components/Details/Edit";
@@ -20,9 +19,9 @@ import { OwnerGuard } from "./components/common/OwnerGuard";
 
 function App() {
   return (
-    <AuthProvider>
-      <ItemProvider>
-        <div>
+    <div>
+      <AuthProvider>
+        <ItemProvider>
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -40,13 +39,12 @@ function App() {
                   </OwnerGuard>
                 }
               />
-              <Route path="/logout" element={<Logout />} />
             </Route>
           </Routes>
           <Footer />
-        </div>
-      </ItemProvider>
-    </AuthProvider>
+        </ItemProvider>
+      </AuthProvider>
+    </div>
   );
 }
 

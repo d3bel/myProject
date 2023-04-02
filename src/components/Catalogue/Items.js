@@ -1,7 +1,19 @@
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
+import { useAuthContext } from "../../context/AuthContext";
+
 export const Items = ({ items }) => {
+
+  // const items1 = items.map(item => [date1, date2] = item?.createOn)
+  // console.log(items1);
+  // const date = item?.createOn
+  // let date1;
+  // let date2;
+  // if(date) {
+  //   [date1, date2] = date;
+
+  // }
   return (
     <>
       <div
@@ -33,8 +45,8 @@ export const Items = ({ items }) => {
                   style={{ width: "60px", height: "100px" }}
                 >
                   <i className="fa fa-calendar-alt text-primary mb-2"></i>
-                  <p className="m-0 text-black">{item.createOn}</p>
-                  <small className="text-black">{item.createOn}</small>
+                  <p className="m-0 text-black">{item?.createOn[0]}</p>
+                  <small className="text-black">{item?.createOn[1]}</small>
                 </div>
                 <div className="h4 m-0 text-white me-4">{item.description}</div>
                 <div className="m-0 text-white me-4">
@@ -51,7 +63,7 @@ export const Items = ({ items }) => {
                     alt=""
                   />
                   <small className="text-uppercase">
-                    FirstName and LastName
+                    {`${item.ownerName}`}
                   </small>
                 </div>
                 <div className="d-flex align-items-center">

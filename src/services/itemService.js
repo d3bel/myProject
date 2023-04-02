@@ -30,7 +30,7 @@ export const itemServiceFactory = (token) => {
   // };
 
   const editItem = async (itemId, data) =>
-    request.put(`${baseUrl}/${itemId}`, data);
+    request.put(`${baseUrl}/items/${itemId}`, data);
 
   const deleteItem = async (itemId) => request.delete(`${baseUrl}/items/${itemId}`);
 

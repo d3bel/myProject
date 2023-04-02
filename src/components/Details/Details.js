@@ -25,6 +25,13 @@ export const Details = () => {
     onRemoveItem(itemId);
     setConfirmation(false);
   };
+  const date = item?.createOn
+  let date1;
+  let date2;
+  if(date) {
+    [date1, date2] = date;
+
+  }
 
   // const [userFullName, setUserFullName] = useState("");
   // const [comment, setComment] = useState("");
@@ -62,8 +69,8 @@ export const Details = () => {
                     style={{ width: "60px", height: "100px" }}
                   >
                     <i className="fa fa-calendar-alt text-primary mb-2"></i>
-                    <p className="m-0 text-black">date</p>
-                    <small className="text-black">date</small>
+                    <p className="m-0 text-black">{date1}</p>
+                    <small className="text-black">{date2}</small>
                   </div>
                   <div className="h4 m-0 text-white me-4">
                     {item.description}
@@ -73,13 +80,13 @@ export const Details = () => {
                   <div className="d-flex align-items-center">
                     <img
                       className="rounded-circle me-2"
-                      src="{item.imageUrl}"
+                      src={item.imageUrl}
                       width="30"
                       height="30"
                       alt=""
                     />
                     <small className="text-uppercase">
-                      FirstName and LastName
+                      {item.ownerName}
                     </small>
                   </div>
                   <div className="d-flex align-items-center">

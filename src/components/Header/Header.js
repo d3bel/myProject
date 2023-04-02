@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import { AuthContext } from "../../context/AuthContext";
 
 export const Header = () => {
-  const { isAuthenticated, email } = useContext(AuthContext);
+  const { isAuthenticated, email, onLogout } = useContext(AuthContext);
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container>
@@ -49,7 +49,7 @@ export const Header = () => {
                 My Profile
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/logout">
+              <NavDropdown.Item as={Button} onClick={onLogout}>
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
@@ -64,7 +64,11 @@ export const Header = () => {
                 >
                   {email}
                 </Nav.Link>
-                <Nav.Link as={Link} to="/logout">
+                <Nav.Link
+                  as={Button}
+                  variant="outline-danger"
+                  onClick={onLogout}
+                >
                   Logout
                 </Nav.Link>
               </>

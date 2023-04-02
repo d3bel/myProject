@@ -1,42 +1,47 @@
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link, useParams } from "react-router-dom";
-import { useForm } from "../../hooks/useForm";
-import { useItem } from "../../hooks/useItem";
+
 import { useItemContext } from "../../context/ItemContext";
+import { itemServiceFactory } from "../../services/itemService";
+import { useTokenService } from "../../hooks/useTokenService";
+import { useItem } from "../../hooks/useItem";
 
 export const Edit = () => {
   const { itemId } = useParams();
-
-  const { item, token } = useItem(itemId);
-
+  const [values, setValues] = useState({
+    title: "",
+    category: "",
+    level: "",
+    imageUrl: "",
+    description: "",
+    createOn: "",
+  });
   const { onEditItemSubmit } = useItemContext();
+  const itemService = useTokenService(itemServiceFactory);
+  const { token } = useItem(itemId);
 
-  const currentDate = new Date();
+  useEffect(() => {
+    itemService
+      .getOneItem(itemId)
+      .then((result) => {
+        setValues(result);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, [itemId]);
+  
+  const changeHandler = (e) => {
+    setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
+  };
 
-  const formattedDate = currentDate
-    .toLocaleDateString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    })
-    .split(", ");
-
-  const { values, changeHandler, onSubmit } = useForm(
-    {
-      title: "",
-      category: "",
-      level: "",
-      imageUrl: "",
-      description: "",
-      createOn: "",
-    },
-    onEditItemSubmit,
-    token,
-    formattedDate,
-    item
-  );
-
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onEditItemSubmit(values._id, values, token);
+  };
+  
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
@@ -50,7 +55,7 @@ export const Edit = () => {
           borderStyle: "groove",
           borderColor: "honeydew",
         }}
-        key={item._id}
+        key={values._id}
       >
         <h1 style={{ width: "10%", margin: "0 auto" }}>Edit Item</h1>
         <Form
@@ -132,7 +137,7 @@ export const Edit = () => {
             style={{ margin: 20 }}
             type="submit"
             as={Link}
-            to={`/catalogue/${item._id}`}
+            to={`/catalogue/${values._id}`}
           >
             Edit Cancel
           </Button>

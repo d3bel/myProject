@@ -30,21 +30,19 @@ export const ItemProvider = ({ children }) => {
     navigate("/catalogue");
   };
 
-  const onEditItemSubmit = async (itemData, token) => {
+  const onEditItemSubmit = async (id, itemData, token) => {
     try {
-      const itemId = itemData._id;
       const editedItem = await itemServiceFactory(token).editItem(
-        itemId,
+        id,
         itemData
       );
-
       setItems((items) =>
-        items.map((item) => (item._id === itemId ? editedItem : item))
+        items.map((item) => (item._id === id ? editedItem : item))
       );
 
-      navigate(`/catalogue/edit/${itemData._id}`);
+      navigate(`/catalogue/${itemData._id}`);
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 

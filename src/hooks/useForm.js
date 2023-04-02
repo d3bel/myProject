@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-export const useForm = (initialValues, onSubmitHandler, token, date) => {
+export const useForm = (
+  initialValues,
+  onSubmitHandler,
+  token,
+  date,
+  ownerName
+) => {
   const [values, setValues] = useState(initialValues);
 
   const changeHandler = (e) => {
@@ -9,6 +15,7 @@ export const useForm = (initialValues, onSubmitHandler, token, date) => {
         ...state,
         [e.target.name]: e.target.value,
         createOn: date,
+        ownerName,
       }));
     }
 

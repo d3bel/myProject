@@ -1,11 +1,19 @@
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+
 
 import { useForm } from "../../hooks/useForm";
 import { useAuthContext } from "../../context/AuthContext";
 import { useItemContext } from "../../context/ItemContext";
 
 export const AddItem = () => {
+  const [names, setNames] = useState({});
+  const { getUserDetails } = useAuthContext();
+  useEffect(() => {
+    getUserDetails().then((result) => setNames(result));
+  }, []);
+  const fullName = `${names.firstName} ${names.lastName}`;
   const { onAddItemSubmit } = useItemContext();
   const { token } = useAuthContext();
   const currentDate = new Date();
@@ -16,8 +24,10 @@ export const AddItem = () => {
       year: "numeric",
     })
     .split(", ");
+    // const {getUserDetails} = useAuthContext()
+    // const ownerName = `${getUserDetails().firstName} ${getUserDetails().lastName}`
 
-  const { values, changeHandler, onSubmit } = useForm(
+  const { values, changeHandler, onSubmit, } = useForm(
     {
       title: "",
       category: "",
@@ -25,12 +35,15 @@ export const AddItem = () => {
       imageUrl: "",
       description: "",
       createOn: "",
+      ownerName: "",
     },
     onAddItemSubmit,
     token,
-    formattedDate
+    formattedDate,
+    // ownerName,
+    fullName
   );
-
+    console.log(fullName);
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
