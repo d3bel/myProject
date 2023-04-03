@@ -1,19 +1,7 @@
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
-import { useAuthContext } from "../../context/AuthContext";
-
 export const Items = ({ items }) => {
-
-  // const items1 = items.map(item => [date1, date2] = item?.createOn)
-  // console.log(items1);
-  // const date = item?.createOn
-  // let date1;
-  // let date2;
-  // if(date) {
-  //   [date1, date2] = date;
-
-  // }
   return (
     <>
       <div
@@ -26,7 +14,7 @@ export const Items = ({ items }) => {
       </div>
       <div className="row g-3">
         <div className="container col-xl-4 col-lg-6 justifyContent-center alignItems-center">
-          {items.map((item) => (
+          {items?.map((item) => (
             <div
               className="blog-item bg-secondary "
               key={item._id}

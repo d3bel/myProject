@@ -7,15 +7,14 @@ import { useItemContext } from "../../context/ItemContext";
 
 export const Catalogue = () => {
   const { isAuthenticated } = useAuthContext();
-  const { values } = useItemContext();
-
+  const { items } = useItemContext();
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
       style={{ marginBottom: "0px" }}
     >
       <div className="container bg-dark py-5">
-        {!values || values?.length === 0 ? (
+        {!items || items?.length === 0 ? (
           <div
             className="text-center mx-auto mb-5 text-white"
             style={{ maxWidth: "500px" }}
@@ -27,9 +26,9 @@ export const Catalogue = () => {
             />
           </div>
         ) : (
-          <Items values={values} />
+          <Items items={items} />
         )}
-        {/* // {values?.length > 0 &&  />} */}
+        {/* // {items?.length > 0 &&  />} */}
         {isAuthenticated && (
           <div className="col-12 text-center">
             <Button

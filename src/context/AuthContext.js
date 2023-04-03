@@ -9,7 +9,7 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [names, setNames] = useState({ firstName: "", lastName: "" });
+  // const [names, setNames] = useState({ firstName: "", lastName: "" });
   const [auth, setAuth] = useStorage("accT", {});
   const authService = AuthServiceFactory(auth.accessToken);
 

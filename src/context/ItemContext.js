@@ -8,13 +8,22 @@ export const ItemContext = createContext();
 
 export const ItemProvider = ({ children }) => {
   const navigate = useNavigate();
-
-  const itemService = useTokenService(itemServiceFactory);
-
   const [items, setItems] = useState([]);
 
   const service = itemServiceFactory();
 
+  const itemService = useTokenService(itemServiceFactory);
+
+  const onAddItemSubmit = async (itemData, token) => {
+    try {
+      const newItem = await itemServiceFactory(token).create(itemData);
+      setItems((state) => (state ? [...state, newItem] : [newItem]));
+      navigate("/catalogue");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
   useEffect(() => {
     service
       .getAllItems()
@@ -23,12 +32,6 @@ export const ItemProvider = ({ children }) => {
       })
       .catch(() => console.log("No Content"));
   }, []);
-
-  const onAddItemSubmit = async (itemData, token) => {
-    const newItem = await itemServiceFactory(token).create(itemData);
-    setItems((state) => [...state, newItem]);
-    navigate("/catalogue");
-  };
 
   const onEditItemSubmit = async (id, itemData, token) => {
     try {

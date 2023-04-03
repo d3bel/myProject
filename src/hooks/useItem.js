@@ -11,9 +11,9 @@ export const useItem = (itemId) => {
   const { isAuthenticated, userId, token } = useAuthContext();
 
   const itemService = useTokenService(itemServiceFactory);
-
-  useEffect(() => {
-    itemService
+    
+    useEffect(() => {
+      itemService
       .getOneItem(itemId)
       .then((result) => {
         setItem(result);
@@ -21,8 +21,9 @@ export const useItem = (itemId) => {
       .catch((error) => {
         console.log(error.message);
       });
-  }, [itemId]);
-
+    }, [itemId]);
+    
+ 
   const isOwner = userId === item._ownerId;
 
 

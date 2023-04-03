@@ -10,9 +10,11 @@ import { useItemContext } from "../../context/ItemContext";
 export const AddItem = () => {
   const [names, setNames] = useState({});
   const { getUserDetails } = useAuthContext();
+  
   useEffect(() => {
     getUserDetails().then((result) => setNames(result));
   }, []);
+
   const fullName = `${names.firstName} ${names.lastName}`;
   const { onAddItemSubmit } = useItemContext();
   const { token } = useAuthContext();
@@ -24,8 +26,6 @@ export const AddItem = () => {
       year: "numeric",
     })
     .split(", ");
-    // const {getUserDetails} = useAuthContext()
-    // const ownerName = `${getUserDetails().firstName} ${getUserDetails().lastName}`
 
   const { values, changeHandler, onSubmit, } = useForm(
     {
@@ -40,10 +40,9 @@ export const AddItem = () => {
     onAddItemSubmit,
     token,
     formattedDate,
-    // ownerName,
     fullName
   );
-    console.log(fullName);
+
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
@@ -132,53 +131,5 @@ export const AddItem = () => {
         </Form>
       </div>
     </div>
-    // <section id="create-item" className="auth">
-    //   <form id="create" onSubmit={onSubmit}>
-    //     <div className="container">
-    //       <h1>Create Item</h1>
-    //       <label htmlFor="title">Title:</label>
-    //       <input
-    //         value={values.title}
-    //         onChange={changeHandler}
-    //         type="text"
-    //         id="title"
-    //         name="title"
-    //       ></input>
-    //       <label htmlFor="title">Category:</label>
-    //       <input
-    //         value={values.category}
-    //         onChange={changeHandler}
-    //         type="text"
-    //         id="category"
-    //         name="category"
-    //       ></input>
-    //       <label htmlFor="title">Level:</label>
-    //       <input
-    //         value={values.level}
-    //         onChange={changeHandler}
-    //         type="text"
-    //         id="level"
-    //         name="level"
-    //       ></input>
-    //       <label htmlFor="title">Image:</label>
-    //       <input
-    //         value={values.imageUrl}
-    //         onChange={changeHandler}
-    //         type="text"
-    //         id="imageUrl"
-    //         name="image"
-    //       ></input>
-    //       <label htmlFor="title">Description:</label>
-    //       <textarea
-    //         value={values.description}
-    //         onChange={changeHandler}
-    //         type="text"
-    //         id="description"
-    //         name="description"
-    //       ></textarea>
-    //       <input className="btn submit" type="submit" value="Add Item"></input>
-    //     </div>
-    //   </form>
-    // </section>
   );
 };
