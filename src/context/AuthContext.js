@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useStorage } from "../hooks/useStorage";
@@ -9,7 +9,6 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  // const [names, setNames] = useState({ firstName: "", lastName: "" });
   const [auth, setAuth] = useStorage("accT", {});
   const authService = AuthServiceFactory(auth.accessToken);
 
@@ -55,10 +54,7 @@ export const AuthProvider = ({ children }) => {
       const result = await authService.me();
       const firstName = result["first-name"];
       const lastName = result["last-name"];
-      // console.log(firstName, lastName);
       return { firstName, lastName };
-      // setNames({ firstName, lastName });
-      // console.log(names);
     } catch (error) {
       console.log(error.message);
     }
@@ -69,7 +65,6 @@ export const AuthProvider = ({ children }) => {
     onRegisterSubmit,
     onLoginSubmit,
     onLogout,
-    // names,
     userId: auth._id,
     token: auth.accessToken,
     email: auth.email,

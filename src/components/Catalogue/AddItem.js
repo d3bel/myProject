@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
+import Col from "react-bootstrap/Col";
 
 import { useForm } from "../../hooks/useForm";
 import { useAuthContext } from "../../context/AuthContext";
@@ -10,37 +10,29 @@ import { useItemContext } from "../../context/ItemContext";
 export const AddItem = () => {
   const [names, setNames] = useState({});
   const { getUserDetails } = useAuthContext();
-  
   useEffect(() => {
     getUserDetails().then((result) => setNames(result));
-  }, []);
-
-  const fullName = `${names.firstName} ${names.lastName}`;
+  }, [getUserDetails]);
+  const postedBy = `${names.firstName} ${names.lastName}`;
   const { onAddItemSubmit } = useItemContext();
   const { token } = useAuthContext();
-  const currentDate = new Date();
-  const formattedDate = currentDate
-    .toLocaleDateString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    })
-    .split(", ");
 
-  const { values, changeHandler, onSubmit, } = useForm(
+  const { values, changeHandler, onSubmit } = useForm(
     {
-      title: "",
-      category: "",
-      level: "",
+      series: "",
+      country: "",
+      themes: "",
       imageUrl: "",
-      description: "",
-      createOn: "",
-      ownerName: "",
+      issuedOn: "",
+      format: "",
+      printedBy: "",
+      faceValue: "",
+      printRun: "",
+      postedBy: "",
     },
     onAddItemSubmit,
     token,
-    formattedDate,
-    fullName
+    postedBy
   );
 
   return (
@@ -65,26 +57,79 @@ export const AddItem = () => {
           style={{ marginLeft: "15px", width: "80%" }}
           onSubmit={onSubmit}
         >
-          <Form.Group controlId="title">
+          <fieldset
+            className="container"
+            style={{
+              margin: "20px auto",
+              borderStyle: "groove",
+              borderColor: "honeydew",
+            }}
+          >
+            <Form.Group className="mb-3">
+              <Form.Label as="label" column>
+                Select Category:
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Check
+                  type="radio"
+                  label="Stamp"
+                  onChange={changeHandler}
+                  name="format"
+                  id="format1"
+                  value="Stamp"
+                />
+                <Form.Check
+                  type="radio"
+                  label="Coin"
+                  onChange={changeHandler}
+                  name="format"
+                  id="format2"
+                  value="Coin"
+                />
+              </Col>
+            </Form.Group>
+          </fieldset>
+          <Form.Group controlId="themes">
             <Form.Label>Title:</Form.Label>
             <Form.Control
               type="text"
-              name="title"
-              value={values.title}
+              name="themes"
+              value={values.themes}
               onChange={changeHandler}
-              placeholder="Enter Title"
+              placeholder="Enter themes"
               required
             />
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="category">
-            <Form.Label>Category:</Form.Label>
+          <Form.Group controlId="country">
+            <Form.Label>Country:</Form.Label>
             <Form.Control
               type="text"
-              name="category"
-              value={values.category}
+              name="country"
+              value={values.country}
               onChange={changeHandler}
-              placeholder="Enter Category"
+              placeholder="Enter Country"
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="issuedOn">
+            <Form.Label>Date of issue:</Form.Label>
+            <Form.Control
+              type="date"
+              name="issuedOn"
+              value={values.issuedOn}
+              onChange={changeHandler}
+              placeholder="Enter date of issue"
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="faceValue">
+            <Form.Label>Value:</Form.Label>
+            <Form.Control
+              type="text"
+              name="faceValue"
+              value={values.faceValue}
+              onChange={changeHandler}
+              placeholder="Enter value at the time"
               required
             />
           </Form.Group>
@@ -100,28 +145,36 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="level">
-            <Form.Label>Level:</Form.Label>
+          <Form.Group className="mb-3" controlId="printRun">
+            <Form.Label>Printed quantity:</Form.Label>
             <Form.Control
               type="number"
-              name="level"
-              value={values.level}
+              name="printRun"
+              value={values.printRun}
               onChange={changeHandler}
-              placeholder="Enter Level"
+              placeholder="Enter printed run number"
               required
             />
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="description">
-            <Form.Label>Description:</Form.Label>
+          <Form.Group className="mb-3" controlId="series">
+            <Form.Label>Series:</Form.Label>
             <Form.Control
-              as="textarea"
-              rows={5}
               type="text"
-              name="description"
-              value={values.description}
+              name="series"
+              value={values.series}
               onChange={changeHandler}
-              placeholder="Enter Description"
+              placeholder="Enter series"
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="printedBy">
+            <Form.Label>Printed by:</Form.Label>
+            <Form.Control
+              type="text"
+              name="printedBy"
+              value={values.printedBy}
+              onChange={changeHandler}
+              placeholder="Enter printed by"
               required
             />
           </Form.Group>

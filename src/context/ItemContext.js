@@ -16,14 +16,14 @@ export const ItemProvider = ({ children }) => {
 
   const onAddItemSubmit = async (itemData, token) => {
     try {
-      const newItem = await itemServiceFactory(token).create(itemData);
+      const newItem = await itemService.create(itemData);
       setItems((state) => (state ? [...state, newItem] : [newItem]));
       navigate("/catalogue");
     } catch (error) {
       console.log(error.message);
     }
   };
-  
+
   useEffect(() => {
     service
       .getAllItems()
@@ -33,14 +33,17 @@ export const ItemProvider = ({ children }) => {
       .catch(() => console.log("No Content"));
   }, []);
 
-  const onEditItemSubmit = async (id, itemData, token) => {
+  const onEditItemSubmit = async (itemData, token) => {
     try {
-      const editedItem = await itemServiceFactory(token).editItem(id, itemData);
-      setItems((items) =>
-        items.map((item) => (item._id === id ? editedItem : item))
+      const editedItem = await itemServiceFactory(token).editItem(
+        itemData._id,
+        itemData
+      );
+      setItems((state) =>
+        state.map((item) => (item._id === itemData._id ? editedItem : item))
       );
 
-      navigate(`/catalogue/${itemData._id}`);
+      return navigate(`/catalogue/${itemData._id}`);
     } catch (err) {
       console.log(err.message);
     }
@@ -57,7 +60,7 @@ export const ItemProvider = ({ children }) => {
   };
 
   const getItem = (itemId) => {
-    return items.find((item) => item._id === itemId);
+    return items.find((item) => item?._id === itemId);
   };
 
   const contextData = {

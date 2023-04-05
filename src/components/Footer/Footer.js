@@ -34,7 +34,7 @@ export const Footer = () => {
               <hr className="w-25 text-success mb-4" style={{ opacity: "1" }} />
               <div className="d-flex flex-column justify-content-start">
                 <Link className="text-light" to="#">
-                  <i className="fa fa-angle-right me-2"></i>Window Washing
+                  <i className="fa fa-angle-right me-2"></i>Some text
                 </Link>
               </div>
             </div>
@@ -69,33 +69,6 @@ export const Footer = () => {
                   <button className="btn btn-success">Sign Up</button>
                 </div>
               </form>
-              {/* <h6 className="text-success mt-4 mb-3">Follow Us</h6>
-              <div className="d-flex">
-                <Link
-                  className="btn btn-lg btn-success btn-lg-square rounded-circle me-2"
-                  to="#"
-                >
-                  <p className="fab fa-twitter"></p>
-                </Link>
-                <Link
-                  className="btn btn-lg btn-success btn-lg-square rounded-circle me-2"
-                  to="#"
-                >
-                  <p className="fab fa-facebook-f"></p>
-                </Link>
-                <Link
-                  className="btn btn-lg btn-success btn-lg-square rounded-circle me-2"
-                  to="#"
-                >
-                  <p className="fab fa-linkedin-in"></p>
-                </Link>
-                <Link
-                  className="btn btn-lg btn-success btn-lg-square rounded-circle"
-                  to="#"
-                >
-                  <p className="fab fa-instagram"></p>
-                </Link>
-              </div> */}
             </div>
           </div>
         </div>

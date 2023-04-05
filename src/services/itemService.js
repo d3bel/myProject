@@ -35,15 +35,11 @@ export const itemServiceFactory = (token) => {
       console.log(error.message);
     }
   };
-  // const addComment = async (itemId, data) => {
-  //   const result = await request.post(`${baseUrl}/${itemId}/comments`, data);
-
-  //   return result;
-  // };
 
   const editItem = async (itemId, data) => {
     try {
-      await request.put(`${baseUrl}/items/${itemId}`, data);
+      const res = await request.put(`${baseUrl}/items/${itemId}`, data);
+      return res;
     } catch (error) {
       console.log(error.message);
     }

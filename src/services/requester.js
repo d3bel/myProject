@@ -47,7 +47,7 @@ export const requestFactory = (token) => {
   if (!token) {
     const serializedAuth = localStorage.getItem("accT");
     if (serializedAuth) {
-      const { accessToken } = JSON.stringify(serializedAuth);
+      const { accessToken } = JSON.parse(serializedAuth);
       token = accessToken;
     }
   }

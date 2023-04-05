@@ -69,7 +69,7 @@ export const Login = () => {
             <Form.Check type="checkbox" label="Check me out" />
           </Form.Group>
           <Button variant="outline-warning" type="submit">
-            Submit
+            Sign in
           </Button>
           <p className="field text-info">
             <span>

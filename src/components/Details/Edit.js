@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 
 import { useItemContext } from "../../context/ItemContext";
 import { itemServiceFactory } from "../../services/itemService";
@@ -10,14 +11,21 @@ import { useItem } from "../../hooks/useItem";
 
 export const Edit = () => {
   const { itemId } = useParams();
+  const [format, setFormat] = useState("");
+
   const [values, setValues] = useState({
-    title: "",
-    category: "",
-    level: "",
+    series: "",
+    country: "",
+    themes: "",
     imageUrl: "",
-    description: "",
-    createOn: "",
+    issuedOn: "",
+    format: "",
+    printedBy: "",
+    faceValue: "",
+    printRun: "",
+    postedBy: "",
   });
+
   const { onEditItemSubmit } = useItemContext();
   const itemService = useTokenService(itemServiceFactory);
   const { token } = useItem(itemId);
@@ -32,18 +40,23 @@ export const Edit = () => {
         console.log(error.message);
       });
   }, [itemId]);
-  
+
+  const onTypeHandler = (e) => {
+    changeHandler(e);
+    setFormat(e.target.value);
+  };
   const changeHandler = (e) => {
     setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    onEditItemSubmit(values._id, values, token);
+    onEditItemSubmit(values, token);
   };
-  
+
   return (
     <div
+      key={values._id}
       className="container-fluid bg-dark text-light py-5"
       style={{ marginBottom: "0px" }}
     >
@@ -55,35 +68,92 @@ export const Edit = () => {
           borderStyle: "groove",
           borderColor: "honeydew",
         }}
-        key={values._id}
       >
-        <h1 style={{ width: "10%", margin: "0 auto" }}>Edit Item</h1>
+        <h1 style={{ width: "10%", margin: "0 auto" }}>Add Item</h1>
         <Form
           id="add-item"
           className="mb-3"
           style={{ marginLeft: "15px", width: "80%" }}
           onSubmit={onSubmit}
         >
-          <Form.Group controlId="title">
+          <fieldset
+            className="container"
+            style={{
+              margin: "20px auto",
+              borderStyle: "groove",
+              borderColor: "honeydew",
+            }}
+          >
+            <Form.Group className="mb-3">
+              <Form.Label as="label" column>
+                Select Category:
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Check
+                  type="radio"
+                  label="Stamp"
+                  onChange={onTypeHandler}
+                  name="format"
+                  id="format1"
+                  value="Stamp"
+                  required
+                />
+
+                <Form.Check
+                  type="radio"
+                  label="Coin"
+                  onChange={onTypeHandler}
+                  name="format"
+                  id="format2"
+                  value="Coin"
+                  required
+                />
+              </Col>
+            </Form.Group>
+          </fieldset>
+
+          <Form.Group controlId="country">
+            <Form.Label>Country:</Form.Label>
+            <Form.Control
+              type="text"
+              name="country"
+              value={values.country}
+              onChange={changeHandler}
+              placeholder="Enter Country"
+              required
+            />
+          </Form.Group>
+          <Form.Group controlId="themes">
             <Form.Label>Title:</Form.Label>
             <Form.Control
               type="text"
-              name="title"
-              value={values.title}
+              name="themes"
+              value={values.themes}
               onChange={changeHandler}
-              placeholder="Enter Title"
+              placeholder="Enter themes"
               required
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="category">
-            <Form.Label>Category:</Form.Label>
+          <Form.Group className="mb-3" controlId="issuedOn">
+            <Form.Label>Date of issue:</Form.Label>
+            <Form.Control
+              type="date"
+              name="issuedOn"
+              value={values.issuedOn}
+              onChange={changeHandler}
+              placeholder="Enter date of issue"
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="faceValue">
+            <Form.Label>Value:</Form.Label>
             <Form.Control
               type="text"
-              name="category"
-              value={values.category}
+              name="faceValue"
+              value={values.faceValue}
               onChange={changeHandler}
-              placeholder="Enter Category"
+              placeholder="Enter value at the time"
               required
             />
           </Form.Group>
@@ -99,28 +169,37 @@ export const Edit = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="level">
-            <Form.Label>Level:</Form.Label>
+          <Form.Group className="mb-3" controlId="printRun">
+            <Form.Label>Printed quantity:</Form.Label>
             <Form.Control
               type="number"
-              name="level"
-              value={values.level}
+              name="printRun"
+              value={values.printRun}
               onChange={changeHandler}
-              placeholder="Enter Level"
+              placeholder="Enter printed run number"
               required
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="description">
-            <Form.Label>Description:</Form.Label>
+          <Form.Group className="mb-3" controlId="series">
+            <Form.Label>Series:</Form.Label>
             <Form.Control
-              as="textarea"
-              rows={5}
               type="text"
-              name="description"
-              value={values.description}
+              name="series"
+              value={values.series}
               onChange={changeHandler}
-              placeholder="Enter Description"
+              placeholder="Enter series"
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="printedBy">
+            <Form.Label>Printed by:</Form.Label>
+            <Form.Control
+              type="text"
+              name="printedBy"
+              value={values.printedBy}
+              onChange={changeHandler}
+              placeholder="Enter printed by"
               required
             />
           </Form.Group>

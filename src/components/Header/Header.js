@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+// import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -37,22 +37,25 @@ export const Header = () => {
             <Nav.Link as={Link} to="/catalogue">
               Catalogue
             </Nav.Link>
-            <NavDropdown
-              title="Dropdown"
+            {/* <NavDropdown
+              title="More Functions"
               id="basic-nav-dropdown"
               menuVariant="dark"
             >
-              <NavDropdown.Item as={Link} to="/catalogue">
-                Catalogue
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/my-profile">
-                My Profile
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/catalogue">Catalogue</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={Button} onClick={onLogout}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
+              <NavDropdown.Item href="/my-profile">My Profile</NavDropdown.Item>
+              <NavDropdown.Divider />
+
+              {isAuthenticated ? (
+                <NavDropdown.Item onClick={onLogout}> Logout </NavDropdown.Item>
+              ) : (
+                <NavDropdown.Item as={Link} to="/login">
+                  Login
+                </NavDropdown.Item>
+              )}
+            </NavDropdown> */}
+
             {isAuthenticated && (
               <>
                 <Nav.Link

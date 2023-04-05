@@ -28,7 +28,6 @@ export const Catalogue = () => {
         ) : (
           <Items items={items} />
         )}
-        {/* // {items?.length > 0 &&  />} */}
         {isAuthenticated && (
           <div className="col-12 text-center">
             <Button
