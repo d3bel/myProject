@@ -8,7 +8,8 @@ import * as commentsService from "../services/commentsService";
 export const useItem = ({ itemId }) => {
   const [item, setItem] = useState({});
 
-  const { isAuthenticated, userId, token } = useAuthContext();
+  const { isAuthenticated, userId, token, firstName, lastName } =
+    useAuthContext();
 
   const itemService = useTokenService(itemServiceFactory);
 
@@ -26,7 +27,13 @@ export const useItem = ({ itemId }) => {
   }, [itemId]);
 
   const onCreateComment = (comment) => {
-    setItem((state) => ({ ...state, comments: [...state.comments, comment] }));
+    setItem((state) => ({
+      ...state,
+      comments: [
+        ...state.comments,
+        { ...comment, owner: { firstName, lastName } },
+      ],
+    }));
   };
 
   const isOwner = userId === item._ownerId;

@@ -4,20 +4,21 @@ import { Button } from "react-bootstrap";
 import { createComment } from "../../services/commentsService";
 import { useForm } from "../../hooks/useForm";
 import { useAuthContext } from "../../context/AuthContext";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
 export const FormComments = ({ isAuthenticated, itemId, onCreateComment }) => {
-  const [names, setNames] = useState("");
+  // const [names, setNames] = useState("");
 
   const { getUserDetails, token } = useAuthContext();
 
-  useEffect(() => {
-    getUserDetails()
-      .then((result) => setNames(result))
-      .catch((error) => console.log(error.message));
-  }, [getUserDetails]);
+  // useEffect(() => {
+  //   getUserDetails()
+  //     .then((result) => setNames(result))
+  //     .catch((error) => console.log(error.message));
+  // }, [getUserDetails]);
 
-  const postedBy = `${names.firstName} ${names.lastName}`;
+  // const postedBy = names;
+  // console.log(names);
 
   const onCommentSubmit = async (values) => {
     const date = new Date();
@@ -25,21 +26,21 @@ export const FormComments = ({ isAuthenticated, itemId, onCreateComment }) => {
     const formattedDate = date.toLocaleDateString("en-US", options);
     const commentData = {
       comments: values.comment,
-      postedBy,
+      // postedBy,
       date: formattedDate,
     };
-    const result = await createComment(itemId, commentData);
+    const result = await createComment(itemId, commentData, token);
     onCreateComment(result);
   };
 
   const { values, changeHandler, onSubmit } = useForm(
     {
       comment: "",
-      postedBy: "",
+      // postedBy: "",
     },
     onCommentSubmit,
     token,
-    postedBy
+    // postedBy
   );
 
   return (

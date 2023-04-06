@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 export const Comments = ({ item }) => {
   const comments = item;
+  console.log(comments);
   return (
     <div
       className="mb-5"
@@ -42,7 +43,7 @@ export const Comments = ({ item }) => {
                     }}
                   >
                     <Link to="" style={{ color: "beige" }}>
-                      {x.comments.postedBy}
+                      {x.owner?.firstName} {x.owner?.lastName}
                     </Link>
                   </div>
                   <small className="h6 text-white">( {x.comments.date} )</small>
@@ -58,7 +59,10 @@ export const Comments = ({ item }) => {
                 >
                   <p>{x.comments.comments}</p>
                 </div>
-                <button style={{margin:30}} className="btn btn-sm btn-secondary rounded-pill px-3">
+                <button
+                  style={{ margin: 30 }}
+                  className="btn btn-sm btn-secondary rounded-pill px-3"
+                >
                   Reply
                 </button>
               </div>
