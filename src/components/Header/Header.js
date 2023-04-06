@@ -64,7 +64,10 @@ export const Header = () => {
                     marginLeft: "10px",
                     marginRight: "10px",
                   }}
+                  as={Link}
+                  to="/MyProfile"
                 >
+                  
                   {email}
                 </Nav.Link>
                 <Nav.Link

@@ -9,8 +9,8 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const RegisterFormKeys = {
-  FirstName: "first-name",
-  LastName: "last-name",
+  FirstName: "firstName",
+  LastName: "lastName",
   Email: "email",
   Password: "password",
   ConfirmPassword: "confirmPassword",

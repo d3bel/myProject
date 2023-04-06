@@ -16,6 +16,7 @@ import { Details } from "./components/Details/Details";
 import { Edit } from "./components/Details/Edit";
 import { RoutingGuard } from "./components/common/RoutingGuard";
 import { OwnerGuard } from "./components/common/OwnerGuard";
+import { MyProfile } from "./components/MyProfile/MyProfile";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/MyProfile" element={<MyProfile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/catalogue" element={<Catalogue />} />

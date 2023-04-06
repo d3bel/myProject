@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       await authService.logout();
       localStorage.removeItem("accT", auth.accessToken);
       setAuth({});
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
       console.log(error.message, ": Fail to logout");
     }
@@ -52,9 +52,8 @@ export const AuthProvider = ({ children }) => {
   const getUserDetails = async () => {
     try {
       const result = await authService.me();
-      const firstName = result["first-name"];
-      const lastName = result["last-name"];
-      return { firstName, lastName };
+      const fullName = result.firstName + " " + result.lastName
+      return fullName;
     } catch (error) {
       console.log(error.message);
     }
@@ -65,6 +64,8 @@ export const AuthProvider = ({ children }) => {
     onRegisterSubmit,
     onLoginSubmit,
     onLogout,
+    firstName: auth.firstName,
+    lastName: auth.lastName,
     userId: auth._id,
     token: auth.accessToken,
     email: auth.email,
