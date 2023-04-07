@@ -41,7 +41,7 @@ export const Comments = ({ item, onEditComment, removeComment }) => {
       }}
     >
       {!comments || comments.length === 0 ? (
-        <h3 className="mb-4 mt-4">8 Comments</h3>
+        <h3 className="mb-4 mt-4">0 Comments</h3>
       ) : (
         <>
           <h3 className="mb-4 mt-4">{comments.length} Comments</h3>

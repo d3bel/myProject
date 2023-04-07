@@ -45,7 +45,7 @@ export const useItem = ({ itemId }) => {
       comments: editedComment,
       date: formattedDate,
     };
-    const result = await commentsService.editComment(comment._id, {
+    const result = await commentsService.editComment(token, comment._id, {
       ...comment,
       comments: commentData,
     });
@@ -59,7 +59,7 @@ export const useItem = ({ itemId }) => {
   };
 
   const removeComment = async (id) => {
-    await commentsService.deleteComment(id);
+    await commentsService.deleteComment(token, id);
     setItem((state) => ({
       ...state,
       comments: state.comments.filter((c) => c._id !== id),

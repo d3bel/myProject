@@ -25,11 +25,14 @@ export const createComment = async (itemId, comments, token) => {
   return result;
 };
 
-export const editComment = async (commentId, body) => {
-  const result = await service.put(`${baseUrl}/${commentId}`, body);
+export const editComment = async (token, commentId, body) => {
+  const result = await requestFactory(token).put(
+    `${baseUrl}/${commentId}`,
+    body
+  );
   return result;
 };
 
-export const deleteComment = async (commentId) => {
-  await service.delete(`${baseUrl}/${commentId}`);
+export const deleteComment = async (token, commentId) => {
+  await requestFactory(token).delete(`${baseUrl}/${commentId}`);
 };
