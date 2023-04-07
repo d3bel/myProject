@@ -31,6 +31,7 @@ export const ItemProvider = ({ children }) => {
         setItems(result);
       })
       .catch(() => console.log("No Content"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onEditItemSubmit = async (itemData, token) => {

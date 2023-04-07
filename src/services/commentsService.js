@@ -13,8 +13,6 @@ export const getAllComments = async (itemId) => {
   );
   const comments = Object.values(results);
 
-  console.log(comments);
-
   return comments;
 };
 
@@ -24,5 +22,10 @@ export const createComment = async (itemId, comments, token) => {
     comments,
   });
 
+  return result;
+};
+
+export const editComment = async (commentId, body) => {
+  const result = await requestFactory().put(`${baseUrl}/${commentId}`, body);
   return result;
 };

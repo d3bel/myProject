@@ -11,6 +11,7 @@ import { useItem } from "../../hooks/useItem";
 
 export const Edit = () => {
   const { itemId } = useParams();
+  // eslint-disable-next-line no-unused-vars
   const [format, setFormat] = useState("");
 
   const [values, setValues] = useState({
@@ -39,6 +40,7 @@ export const Edit = () => {
       .catch((error) => {
         console.log(error.message);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId]);
 
   const onTypeHandler = (e) => {

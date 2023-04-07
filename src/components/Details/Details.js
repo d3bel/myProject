@@ -9,9 +9,10 @@ import { FormComments } from "../Comments/FormComments";
 
 export const Details = () => {
   const { itemId } = useParams();
-  const { item, isAuthenticated, isOwner, onCreateComment } = useItem({
-    itemId,
-  });
+  const { item, isAuthenticated, isOwner, onCreateComment, onEditComment } =
+    useItem({
+      itemId,
+    });
   const { onRemoveItem } = useItemContext();
   const [confirmation, setConfirmation] = useState(false);
 
@@ -131,7 +132,7 @@ export const Details = () => {
                     </>
                   )}
                 </div>
-                <Comments item={item.comments} />
+                <Comments item={item} onEditComment={onEditComment} />
                 <FormComments
                   isAuthenticated={isAuthenticated}
                   itemId={itemId}

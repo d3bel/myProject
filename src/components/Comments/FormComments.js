@@ -7,18 +7,8 @@ import { useAuthContext } from "../../context/AuthContext";
 // import { useState, useEffect } from "react";
 
 export const FormComments = ({ isAuthenticated, itemId, onCreateComment }) => {
-  // const [names, setNames] = useState("");
 
-  const { getUserDetails, token } = useAuthContext();
-
-  // useEffect(() => {
-  //   getUserDetails()
-  //     .then((result) => setNames(result))
-  //     .catch((error) => console.log(error.message));
-  // }, [getUserDetails]);
-
-  // const postedBy = names;
-  // console.log(names);
+  const { token } = useAuthContext();
 
   const onCommentSubmit = async (values) => {
     const date = new Date();

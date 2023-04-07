@@ -24,6 +24,7 @@ export const useItem = ({ itemId }) => {
       .catch((error) => {
         console.log(error.message);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId]);
 
   const onCreateComment = (comment) => {
@@ -36,7 +37,36 @@ export const useItem = ({ itemId }) => {
     }));
   };
 
+  const onEditComment = async (comment, editedComment) => {
+    const date = new Date();
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    const formattedDate = date.toLocaleDateString("en-US", options);
+    const commentData = {
+      comments: editedComment,
+      date: formattedDate,
+    };
+    const result = await commentsService.editComment(comment._id, {
+      ...comment,
+      comments: commentData,
+    });
+
+    setItem((state) => ({
+      ...state,
+      comments: state.comments.map((c) =>
+        c._id === result._id ? (c.comments = result) : c
+      ),
+    }));
+  };
+
   const isOwner = userId === item._ownerId;
 
-  return { item, isAuthenticated, isOwner, token, onCreateComment };
+  return {
+    item,
+    isAuthenticated,
+    isOwner,
+    token,
+    onCreateComment,
+    onEditComment,
+    userId,
+  };
 };
