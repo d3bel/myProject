@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 import { EditComment } from "./EditComment";
 
-export const Comments = ({ item, onEditComment }) => {
+export const Comments = ({ item, onEditComment, removeComment }) => {
   const { comments } = item;
   const { userId } = useAuthContext();
 
@@ -25,6 +25,10 @@ export const Comments = ({ item, onEditComment }) => {
 
   const handleCancelEditComment = () => {
     setEditingCommentId(null);
+  };
+
+  const onRemove = (id) => {
+    removeComment(id);
   };
 
   return (
@@ -109,6 +113,7 @@ export const Comments = ({ item, onEditComment }) => {
                     <Button
                       variant="outline-danger"
                       className="btn btn-sm btn-dark text-white px-3"
+                      onClick={() => onRemove(x._id)}
                     >
                       Remove
                     </Button>

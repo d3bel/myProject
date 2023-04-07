@@ -58,6 +58,14 @@ export const useItem = ({ itemId }) => {
     }));
   };
 
+  const removeComment = async (id) => {
+    await commentsService.deleteComment(id);
+    setItem((state) => ({
+      ...state,
+      comments: state.comments.filter((c) => c._id !== id),
+    }));
+  };
+
   const isOwner = userId === item._ownerId;
 
   return {
@@ -65,6 +73,7 @@ export const useItem = ({ itemId }) => {
     isAuthenticated,
     isOwner,
     token,
+    removeComment,
     onCreateComment,
     onEditComment,
     userId,
