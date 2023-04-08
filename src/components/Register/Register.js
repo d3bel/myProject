@@ -169,6 +169,7 @@ export const Register = () => {
                   name={RegisterFormKeys.Role}
                   id="gender1"
                   value="/assets/maleIcon.png"
+                  required
                 />
                 {/* {role === "admin" && (
                   <Form.Control
@@ -186,6 +187,7 @@ export const Register = () => {
                   name={RegisterFormKeys.Role}
                   id="gender2"
                   value="/assets/femaleIcon.png"
+                  required
                 />
               </Col>
             </Form.Group>

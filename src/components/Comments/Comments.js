@@ -6,7 +6,7 @@ import { EditComment } from "./EditComment";
 
 export const Comments = ({ item, onEditComment, removeComment }) => {
   const { comments } = item;
-  const { userId } = useAuthContext();
+  const { userId, gender } = useAuthContext();
 
   const [editingCommentId, setEditingCommentId] = useState(null);
 
@@ -18,7 +18,7 @@ export const Comments = ({ item, onEditComment, removeComment }) => {
     comments.map(
       (comment) =>
         comment._id === editingCommentId &&
-        onEditComment(comment, editedComment)
+        onEditComment(comment, editedComment, gender)
     );
     setEditingCommentId(null);
   };
@@ -56,7 +56,7 @@ export const Comments = ({ item, onEditComment, removeComment }) => {
               className="d-flex mb-4"
             >
               <img
-                src="img/user.jpg"
+                src={x.comments.gender}
                 className="img-fluid"
                 style={{ width: "45px", height: "45px" }}
                 alt=""
@@ -81,7 +81,7 @@ export const Comments = ({ item, onEditComment, removeComment }) => {
                 >
                   {x.comments.comments}
                 </p>
-                {x._ownerId !== userId && (
+                {/* {x._ownerId !== userId && (
                   <Button
                     variant="success"
                     style={{ margin: 30 }}
@@ -89,34 +89,34 @@ export const Comments = ({ item, onEditComment, removeComment }) => {
                   >
                     Reply
                   </Button>
-                )}
-                {x._ownerId === userId && (
+                )} */}
+                {editingCommentId !== null && x._id === editingCommentId ? (
+                  <EditComment
+                    comment={comments.find((c) => c._id === editingCommentId)}
+                    onSave={handleSaveComment}
+                    onCancel={handleCancelEditComment}
+                  />
+                ) : (
                   <>
-                    <Button
-                      style={{ margin: 30 }}
-                      variant="outline-warning"
-                      className="btn btn-sm btn-dark text-white px-5"
-                      onClick={() => handleEditComment(x._id)}
-                    >
-                      Edit
-                    </Button>
-                    {editingCommentId !== null &&
-                      x._id === editingCommentId && (
-                        <EditComment
-                          comment={comments.find(
-                            (c) => c._id === editingCommentId
-                          )}
-                          onSave={handleSaveComment}
-                          onCancel={handleCancelEditComment}
-                        />
-                      )}
-                    <Button
-                      variant="outline-danger"
-                      className="btn btn-sm btn-dark text-white px-3"
-                      onClick={() => onRemove(x._id)}
-                    >
-                      Remove
-                    </Button>
+                    {x._ownerId === userId && (
+                      <>
+                        <Button
+                          style={{ margin: 30 }}
+                          variant="outline-warning"
+                          className="btn btn-sm btn-dark text-white px-5"
+                          onClick={() => handleEditComment(x._id)}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="outline-danger"
+                          className="btn btn-sm btn-dark text-white px-3"
+                          onClick={() => onRemove(x._id)}
+                        >
+                          Remove
+                        </Button>
+                      </>
+                    )}
                   </>
                 )}
               </div>

@@ -29,7 +29,7 @@ export const Header = () => {
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container>
         <Navbar.Brand as={Link} to="/">
-          My React Project
+          Our history in rare valuables
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

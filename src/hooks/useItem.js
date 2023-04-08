@@ -37,13 +37,14 @@ export const useItem = ({ itemId }) => {
     }));
   };
 
-  const onEditComment = async (comment, editedComment) => {
+  const onEditComment = async (comment, editedComment, gender) => {
     const date = new Date();
     const options = { day: "2-digit", month: "short", year: "numeric" };
     const formattedDate = date.toLocaleDateString("en-US", options);
     const commentData = {
       comments: editedComment,
       date: formattedDate,
+      gender,
     };
     const result = await commentsService.editComment(token, comment._id, {
       ...comment,

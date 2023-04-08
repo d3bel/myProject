@@ -22,7 +22,7 @@ export const MyProfile = () => {
         <div className="container py-5">
           <div className="row justify-content-start">
             <div className="col-lg-8 text-center text-lg-start">
-              <h1 className="display-1 text-dark">Welcome back!</h1>
+              <h1 className="display-1 text-dark">Welcome!</h1>
               <p className="fs-4 text-dark mb-4">This is your private space</p>
               {!showModal && myCollection.length > 0 && (
                 <div className="pt-2">
@@ -34,7 +34,7 @@ export const MyProfile = () => {
                   </Link>
                   {myLikes && (
                     <Link
-                      to="/contacts"
+                      to="/"
                       className="btn btn-outline-dark rounded-pill py-md-3 px-md-5 mx-2"
                     >
                       My Favorites
@@ -45,7 +45,7 @@ export const MyProfile = () => {
                       to="/catalogue"
                       className="btn btn-outline-dark rounded-pill py-md-3 px-md-5 mx-2"
                     >
-                      No Favorites: Add items I Like
+                      No Favorites yet!
                     </Link>
                   )}
                 </div>
@@ -85,7 +85,7 @@ export const MyProfile = () => {
             <ul className="list-unstyled">
               <li>
                 <i className="bi bi-envelope me-2"></i>
-                <Link to={`"${email}"`}>{email}</Link>
+                <Link >{email}</Link>
               </li>
               <li>
                 <i className="bi bi-geo-alt me-2"></i>

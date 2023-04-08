@@ -1,8 +1,9 @@
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 export const Items = ({ items }) => {
-  
+  const { isAuthenticated } = useAuthContext();
   return (
     <>
       <div
@@ -66,18 +67,19 @@ export const Items = ({ items }) => {
                       {item?.postedBy}
                     </small>
                   </div>
-                  <div className="d-flex align-items-center">
-                    <small className="ms-3">
-                      <i className="fa fa-eye text-warning me-2">Views:</i>
-                      12345
-                    </small>
-                    <small className="ms-4">
-                      <Button variant="success" className="rounded-pill me-2">
-                        Likes: 0
-                      </Button>
-                      
-                    </small>
-                  </div>
+                  {isAuthenticated && (
+                    <div className="d-flex align-items-center">
+                      <small className="ms-3">
+                        <i className="fa fa-eye text-warning me-2">Views:</i>
+                        12345
+                      </small>
+                      <small className="ms-4">
+                        <Button variant="success" className="rounded-pill me-2">
+                          Likes: 0
+                        </Button>
+                      </small>
+                    </div>
+                  )}
                 </div>
                 <Button
                   variant="outline-warning"

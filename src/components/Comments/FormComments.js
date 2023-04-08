@@ -7,8 +7,7 @@ import { useAuthContext } from "../../context/AuthContext";
 // import { useState, useEffect } from "react";
 
 export const FormComments = ({ isAuthenticated, itemId, onCreateComment }) => {
-
-  const { token } = useAuthContext();
+  const { token, gender } = useAuthContext();
 
   const onCommentSubmit = async (values) => {
     const date = new Date();
@@ -16,10 +15,11 @@ export const FormComments = ({ isAuthenticated, itemId, onCreateComment }) => {
     const formattedDate = date.toLocaleDateString("en-US", options);
     const commentData = {
       comments: values.comment,
-      // postedBy,
+      gender,
       date: formattedDate,
     };
     const result = await createComment(itemId, commentData, token);
+    console.log(result);
     onCreateComment(result);
   };
 
@@ -30,6 +30,7 @@ export const FormComments = ({ isAuthenticated, itemId, onCreateComment }) => {
     },
     onCommentSubmit,
     token,
+    gender
     // postedBy
   );
 
