@@ -71,12 +71,13 @@ export const Comments = ({ item, onEditComment, removeComment }) => {
                   </small>
                 </h6>
                 <p
-                  style={{
+                  style={{                    
                     float: "center",
                     borderRadius: "10px",
                     background: "gray",
                     padding: "10px",
                     border: "1px solid darkgray",
+                    
                   }}
                 >
                   {x.comments.comments}

@@ -3,27 +3,13 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { AuthContext } from "../../context/AuthContext";
-// import { Search } from "../Search/Search";
 
 export const Header = () => {
-  const { isAuthenticated, email, onLogout } = useContext(AuthContext);
-
-  // const [searchValue, setSearchValue] = useState("");
-  // const [searchModalShow, setSearchModalShow] = useState(false);
-
-  // const handleSearchClick = () => {
-  //   if (searchValue === "") {
-  //     alert("Please enter a search term.");
-  //   } else if (searchValue.length < 3) {
-  //     alert("Search term must be at least 3 characters long.");
-  //   } else {
-  //     setSearchModalShow(true);
-  //   }
-  // };
+  const { isAuthenticated, onLogout, firstName, lastName } =
+    useContext(AuthContext);
 
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
@@ -63,7 +49,7 @@ export const Header = () => {
                   as={Link}
                   to="/MyProfile"
                 >
-                  {email}
+                  MyProfile ({firstName} {lastName})
                 </Nav.Link>
                 <Nav.Link
                   as={Button}
@@ -75,20 +61,17 @@ export const Header = () => {
               </>
             )}
           </Nav>
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Search be name, country or type..."
               className="me-2"
               aria-label="Search"
-              // onChange={(e) => setSearchValue(e.target.value)}
             />
             <Button variant="outline-success">
-              {/* onClick={handleSearchClick} */}
               Search
             </Button>
-            {/* {searchModalShow && <Search value={searchValue} />} */}
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

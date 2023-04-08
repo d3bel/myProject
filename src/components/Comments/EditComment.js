@@ -15,9 +15,8 @@ export const EditComment = ({ comment, onSave, onCancel }) => {
     <div
       key={comment._id}
       className="popup"
-      
       style={{
-        width: '110%',
+        width: "110%",
         borderRadius: "10px",
         backgroundColor: "GrayText",
         padding: "10px",
@@ -26,12 +25,26 @@ export const EditComment = ({ comment, onSave, onCancel }) => {
     >
       <form>
         <textarea
+        style={{ maxWidth: "150%" }}
           value={editedComment}
           onChange={(e) => setEditedComment(e.target.value)}
         />
       </form>
-        <Button style={{margin: "10px"}} className="rounded-pill" variant="success" onClick={handleSave}>Save</Button>
-        <Button className="rounded-pill" variant="outline-danger" onClick={handleCancel}>Cancel</Button>
+      <Button
+        style={{ margin: "10px" }}
+        className="rounded-pill"
+        variant="success"
+        onClick={handleSave}
+      >
+        Save
+      </Button>
+      <Button
+        className="rounded-pill"
+        variant="outline-danger"
+        onClick={handleCancel}
+      >
+        Cancel
+      </Button>
     </div>
   );
 };
