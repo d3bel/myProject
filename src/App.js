@@ -17,6 +17,7 @@ import { Edit } from "./components/Details/Edit";
 import { RoutingGuard } from "./components/common/RoutingGuard";
 import { OwnerGuard } from "./components/common/OwnerGuard";
 import { MyProfile } from "./components/MyProfile/MyProfile";
+import { Collection } from "./components/MyProfile/Collection";
 
 function App() {
   return (
@@ -26,13 +27,15 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/MyProfile" element={<MyProfile />} />
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/catalogue" element={<Catalogue />} />
             <Route path="/catalogue/:itemId" element={<Details />} />
             <Route element={<RoutingGuard />}>
               <Route path="/catalogue/add-item" element={<AddItem />} />
+              <Route path="/myProfile" element={<MyProfile />} />
+              {/* <Route path="/myProfile/collection" element={<Collection />} /> */}
               <Route
                 path="/catalogue/edit/:itemId"
                 element={

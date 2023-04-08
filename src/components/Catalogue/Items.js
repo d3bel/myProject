@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 export const Items = ({ items }) => {
+  
   return (
     <>
       <div
@@ -56,7 +57,7 @@ export const Items = ({ items }) => {
                   <div className="d-flex align-items-center">
                     <img
                       className="rounded-circle me-2"
-                      src={item?.imageUrl}
+                      src={item.gender}
                       width="30"
                       height="30"
                       alt=""
@@ -67,10 +68,14 @@ export const Items = ({ items }) => {
                   </div>
                   <div className="d-flex align-items-center">
                     <small className="ms-3">
-                      <i className="fa fa-eye text-secondary me-2"></i>12345
+                      <i className="fa fa-eye text-warning me-2">Views:</i>
+                      12345
                     </small>
-                    <small className="ms-3">
-                      <i className="fa fa-comment text-secondary me-2"></i>123
+                    <small className="ms-4">
+                      <Button variant="success" className="rounded-pill me-2">
+                        Likes: 0
+                      </Button>
+                      
                     </small>
                   </div>
                 </div>

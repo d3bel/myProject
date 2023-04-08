@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -8,15 +7,9 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useItemContext } from "../../context/ItemContext";
 
 export const AddItem = () => {
-  const [names, setNames] = useState({});
-  const { getUserDetails } = useAuthContext();
-  useEffect(() => {
-    getUserDetails().then((result) => setNames(result));
-  }, [getUserDetails]);
-  const postedBy = `${names.firstName} ${names.lastName}`;
+  const { firstName, lastName, gender, token } = useAuthContext();
+  const postedBy = `${firstName} ${lastName}`;
   const { onAddItemSubmit } = useItemContext();
-  const { token } = useAuthContext();
-
   const { values, changeHandler, onSubmit } = useForm(
     {
       series: "",
@@ -29,10 +22,12 @@ export const AddItem = () => {
       faceValue: "",
       printRun: "",
       postedBy: "",
+      gender: "",
     },
     onAddItemSubmit,
     token,
-    postedBy
+    postedBy,
+    gender
   );
 
   return (

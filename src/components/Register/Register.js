@@ -1,12 +1,12 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-import { useState, useContext } from "react";
-import { useForm } from "../../hooks/useForm";
 import { AuthContext } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { useForm } from "../../hooks/useForm";
 
 const RegisterFormKeys = {
   FirstName: "firstName",
@@ -14,11 +14,12 @@ const RegisterFormKeys = {
   Email: "email",
   Password: "password",
   ConfirmPassword: "confirmPassword",
-  Role: "formHorizontalRadios",
+  Role: "gender",
 };
 
 export const Register = () => {
   const { onRegisterSubmit } = useContext(AuthContext);
+
   const { values, changeHandler, onSubmit } = useForm(
     {
       [RegisterFormKeys.FirstName]: "",
@@ -30,10 +31,8 @@ export const Register = () => {
     },
     onRegisterSubmit
   );
-  const [role, setRole] = useState("");
   const onRoleHandler = (e) => {
     changeHandler(e);
-    setRole(e.target.value);
   };
   return (
     <div
@@ -165,13 +164,13 @@ export const Register = () => {
               <Col sm={10}>
                 <Form.Check
                   type="radio"
-                  label="Admin"
+                  label="Male"
                   onChange={onRoleHandler}
                   name={RegisterFormKeys.Role}
-                  id="formHorizontalRadios1"
-                  value="admin"
+                  id="gender1"
+                  value="/assets/maleIcon.png"
                 />
-                {role === "admin" && (
+                {/* {role === "admin" && (
                   <Form.Control
                     id="admin-field"
                     type="password"
@@ -179,14 +178,14 @@ export const Register = () => {
                     label="Enter admin code:"
                     required
                   />
-                )}
+                )} */}
                 <Form.Check
                   type="radio"
-                  label="User"
+                  label="Female"
                   onChange={onRoleHandler}
                   name={RegisterFormKeys.Role}
-                  id="formHorizontalRadios2"
-                  value="user"
+                  id="gender2"
+                  value="/assets/femaleIcon.png"
                 />
               </Col>
             </Form.Group>

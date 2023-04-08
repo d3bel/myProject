@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const result = await authService.login(data);
       setAuth(result);
-      return navigate("/");
+      return navigate("/myProfile");
     } catch (error) {
       console.log(error.message, ": Failed to login");
     }
@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
       const result = await authService.register(regData);
       setAuth(result);
-      return navigate("/");
+      return navigate("/myProfile");
     } catch (error) {
       console.log(error.message, ": Fail to submit");
     }
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   const getUserDetails = async () => {
     try {
       const result = await authService.me();
-      const fullName = result.firstName + " " + result.lastName
+      const fullName = result.firstName + " " + result.lastName;
       return fullName;
     } catch (error) {
       console.log(error.message);
@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }) => {
     firstName: auth.firstName,
     lastName: auth.lastName,
     userId: auth._id,
+    gender: auth.gender,
     token: auth.accessToken,
     email: auth.email,
     isAuthenticated: !!auth.accessToken,

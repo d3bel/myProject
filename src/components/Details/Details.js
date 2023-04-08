@@ -76,7 +76,7 @@ export const Details = () => {
                     <div className="d-flex align-items-center">
                       <img
                         className="rounded-circle me-2"
-                        src={item.imageUrl}
+                        src={item.gender}
                         width="30"
                         height="30"
                         alt=""

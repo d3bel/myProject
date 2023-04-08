@@ -3,14 +3,28 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-// import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { AuthContext } from "../../context/AuthContext";
+// import { Search } from "../Search/Search";
 
 export const Header = () => {
   const { isAuthenticated, email, onLogout } = useContext(AuthContext);
+
+  // const [searchValue, setSearchValue] = useState("");
+  // const [searchModalShow, setSearchModalShow] = useState(false);
+
+  // const handleSearchClick = () => {
+  //   if (searchValue === "") {
+  //     alert("Please enter a search term.");
+  //   } else if (searchValue.length < 3) {
+  //     alert("Search term must be at least 3 characters long.");
+  //   } else {
+  //     setSearchModalShow(true);
+  //   }
+  // };
+
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container>
@@ -37,24 +51,6 @@ export const Header = () => {
             <Nav.Link as={Link} to="/catalogue">
               Catalogue
             </Nav.Link>
-            {/* <NavDropdown
-              title="More Functions"
-              id="basic-nav-dropdown"
-              menuVariant="dark"
-            >
-              <NavDropdown.Item href="/catalogue">Catalogue</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="/my-profile">My Profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-
-              {isAuthenticated ? (
-                <NavDropdown.Item onClick={onLogout}> Logout </NavDropdown.Item>
-              ) : (
-                <NavDropdown.Item as={Link} to="/login">
-                  Login
-                </NavDropdown.Item>
-              )}
-            </NavDropdown> */}
 
             {isAuthenticated && (
               <>
@@ -67,7 +63,6 @@ export const Header = () => {
                   as={Link}
                   to="/MyProfile"
                 >
-                  
                   {email}
                 </Nav.Link>
                 <Nav.Link
@@ -83,11 +78,16 @@ export const Header = () => {
           <Form className="d-flex">
             <Form.Control
               type="search"
-              placeholder="Search"
+              placeholder="Search be name, country or type..."
               className="me-2"
               aria-label="Search"
+              // onChange={(e) => setSearchValue(e.target.value)}
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-success">
+              {/* onClick={handleSearchClick} */}
+              Search
+            </Button>
+            {/* {searchModalShow && <Search value={searchValue} />} */}
           </Form>
         </Navbar.Collapse>
       </Container>
