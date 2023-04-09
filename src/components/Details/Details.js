@@ -85,19 +85,7 @@ export const Details = () => {
                         {item.postedBy}
                       </small>
                     </div>
-                    {isAuthenticated && (
-                      <div className="d-flex align-items-center">
-                        <small className="ms-3">
-                          <i className="fa fa-eye text-secondary me-2"></i>12345
-                        </small>
-                        <small className="ms-3">
-                          <i className="fa fa-comment text-secondary me-2"></i>
-                          123
-                        </small>
-                      </div>
-                    )}
                   </div>
-
                   {isOwner && (
                     <>
                       <Button
