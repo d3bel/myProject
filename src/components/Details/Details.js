@@ -8,19 +8,17 @@ import { Comments } from "../Comments/Comments";
 import { FormComments } from "../Comments/FormComments";
 
 export const Details = () => {
+  const [confirmation, setConfirmation] = useState(false);
   const { itemId } = useParams();
   const {
     item,
     isAuthenticated,
     isOwner,
-    onCreateComment,
     onEditComment,
     removeComment,
-  } = useItem({
-    itemId,
-  });
+    onCreateComment,
+  } = useItem(itemId);
   const { onRemoveItem } = useItemContext();
-  const [confirmation, setConfirmation] = useState(false);
 
   const handleRemove = () => setConfirmation(true);
 
@@ -136,7 +134,6 @@ export const Details = () => {
                 />
                 <FormComments
                   isAuthenticated={isAuthenticated}
-                  itemId={itemId}
                   onCreateComment={onCreateComment}
                 />
               </div>

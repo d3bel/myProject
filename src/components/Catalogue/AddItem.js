@@ -7,9 +7,19 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useItemContext } from "../../context/ItemContext";
 
 export const AddItem = () => {
-  const { firstName, lastName, gender, token } = useAuthContext();
-  const postedBy = `${firstName} ${lastName}`;
+  const { firstName, lastName, gender } = useAuthContext();
   const { onAddItemSubmit } = useItemContext();
+
+  const onItemSubmit = (values) => {
+    const postedBy = firstName + " " + lastName;
+    const data = {
+      ...values,
+      gender,
+      postedBy,
+    };
+    onAddItemSubmit(data);
+  };
+
   const { values, changeHandler, onSubmit } = useForm(
     {
       series: "",
@@ -24,10 +34,7 @@ export const AddItem = () => {
       postedBy: "",
       gender: "",
     },
-    onAddItemSubmit,
-    token,
-    postedBy,
-    gender
+    onItemSubmit
   );
 
   return (

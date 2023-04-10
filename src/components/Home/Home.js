@@ -3,10 +3,10 @@ import { useItemContext } from "../../context/ItemContext";
 
 export const Home = () => {
   const { items } = useItemContext();
-  const item1 = items[1];
-  const item2 = items[2];
-  const item3 = items[3];
-  const item4 = items[4];
+  const item1 = items ? items[0] : null;
+  const item2 = items ? items[1] : null;
+  const item4 = items ? items[2] : null;
+  const item3 = items ? items[3] : null;
   return (
     <div
       className="container-fluid bg-secondary  py-5 bg-hero"
@@ -26,12 +26,11 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      
+
       <div
         className="container-fluid bg-dark text-light py-5 "
         style={{ borderStyle: "groove", borderColor: "honeydew" }}
       >
-
         <div className="container py-5">
           <Carousel>
             <Carousel.Item interval={2500}>

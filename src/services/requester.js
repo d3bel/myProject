@@ -1,14 +1,14 @@
 const request = async (method, token, url, data) => {
-  const options = {};
+  const options = {
+    method,
+    headers: {},
+  };
 
-  if (method !== "GET") {
-    options.method = method;
-    if (data) {
-      options.headers = {
-        "content-type": "application/json",
-      };
-      options.body = JSON.stringify(data);
-    }
+  if (data) {
+    options.headers = {
+      "content-type": "application/json",
+    };
+    options.body = JSON.stringify(data);
   }
 
   if (token) {
@@ -25,7 +25,7 @@ const request = async (method, token, url, data) => {
       return new Error("Error fetching");
     }
     if (response.status === 409) {
-      return new Error("Conflict fetching");
+      return new Error("Conflict fetching: used email");
     }
 
     if (response.status === 204) {
@@ -47,8 +47,8 @@ export const requestFactory = (token) => {
   if (!token) {
     const serializedAuth = localStorage.getItem("accT");
     if (serializedAuth) {
-      const { accessToken } = JSON.parse(serializedAuth);
-      token = accessToken;
+      const auth = JSON.parse(serializedAuth);
+      token = auth.accessToken;
     }
   }
   return {

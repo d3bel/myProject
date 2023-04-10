@@ -1,37 +1,32 @@
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
-import { createComment } from "../../services/commentsService";
 import { useForm } from "../../hooks/useForm";
 import { useAuthContext } from "../../context/AuthContext";
-// import { useState, useEffect } from "react";
 
-export const FormComments = ({ isAuthenticated, itemId, onCreateComment }) => {
-  const { token, gender } = useAuthContext();
+export const FormComments = ({ isAuthenticated, onCreateComment }) => {
+  const { token, gender, firstName, lastName } = useAuthContext();
 
-  const onCommentSubmit = async (values) => {
+  const onCommentSubmit = (values) => {
     const date = new Date();
     const options = { day: "2-digit", month: "short", year: "numeric" };
     const formattedDate = date.toLocaleDateString("en-US", options);
+    const postedBy = firstName + " " + lastName;
     const commentData = {
       comments: values.comment,
       gender,
+      postedBy,
       date: formattedDate,
     };
-    const result = await createComment(itemId, commentData, token);
-    console.log(result);
-    onCreateComment(result);
+
+    onCreateComment(commentData, token);
   };
 
   const { values, changeHandler, onSubmit } = useForm(
     {
       comment: "",
-      // postedBy: "",
     },
-    onCommentSubmit,
-    token,
-    gender
-    // postedBy
+    onCommentSubmit
   );
 
   return (

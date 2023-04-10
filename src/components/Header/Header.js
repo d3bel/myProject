@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
 
 import { AuthContext } from "../../context/AuthContext";
 
 export const Header = () => {
-  const { isAuthenticated, onLogout, firstName, lastName } =
-    useContext(AuthContext);
+  const { isAuthenticated, firstName, lastName } = useContext(AuthContext);
 
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
@@ -51,11 +49,7 @@ export const Header = () => {
                 >
                   MyProfile ({firstName} {lastName})
                 </Nav.Link>
-                <Nav.Link
-                  as={Button}
-                  variant="outline-danger"
-                  onClick={onLogout}
-                >
+                <Nav.Link as={Link} to="/logout" variant="outline-danger">
                   Logout
                 </Nav.Link>
               </>

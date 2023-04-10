@@ -18,6 +18,7 @@ import { RoutingGuard } from "./components/common/RoutingGuard";
 import { OwnerGuard } from "./components/common/OwnerGuard";
 import { MyProfile } from "./components/MyProfile/MyProfile";
 import { WRONG_PAGE } from "./components/WRONG_PAGE/WRONG_PAGE";
+import { Logout } from "./components/Logout/Logout";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/catalogue" element={<Catalogue />} />
             <Route path="/catalogue/:itemId" element={<Details />} />
+            <Route path="/logout" element={<Logout />} />
             <Route element={<RoutingGuard />}>
               <Route path="/catalogue/add-item" element={<AddItem />} />
               <Route path="/myProfile" element={<MyProfile />} />
@@ -42,7 +44,7 @@ function App() {
                   </OwnerGuard>
                 }
               />
-              <Route path="/*" element={<WRONG_PAGE />} />
+              <Route path="*" element={<WRONG_PAGE />} />
             </Route>
           </Routes>
           <Footer />

@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-import { AuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
 
 const RegisterFormKeys = {
@@ -18,7 +17,7 @@ const RegisterFormKeys = {
 };
 
 export const Register = () => {
-  const { onRegisterSubmit } = useContext(AuthContext);
+  const { onRegisterSubmit } = useAuthContext();
 
   const { values, changeHandler, onSubmit } = useForm(
     {
@@ -31,9 +30,7 @@ export const Register = () => {
     },
     onRegisterSubmit
   );
-  const onRoleHandler = (e) => {
-    changeHandler(e);
-  };
+
   return (
     <div
       className="container-fluid bg-dark text-light py-5"
@@ -165,7 +162,7 @@ export const Register = () => {
                 <Form.Check
                   type="radio"
                   label="Male"
-                  onChange={onRoleHandler}
+                  onChange={changeHandler}
                   name={RegisterFormKeys.Role}
                   id="gender1"
                   value="/assets/maleIcon.png"
@@ -183,7 +180,7 @@ export const Register = () => {
                 <Form.Check
                   type="radio"
                   label="Female"
-                  onChange={onRoleHandler}
+                  onChange={changeHandler}
                   name={RegisterFormKeys.Role}
                   id="gender2"
                   value="/assets/femaleIcon.png"

@@ -1,23 +1,9 @@
 import { useState } from "react";
 
-export const useForm = (
-  initialValues,
-  onSubmitHandler,
-  token,
-  postedBy,
-  gender
-) => {
+export const useForm = (initialValues, onSubmitHandler) => {
   const [values, setValues] = useState(initialValues);
 
   const changeHandler = (e) => {
-    if (postedBy && gender) {
-      return setValues((state) => ({
-        ...state,
-        [e.target.name]: e.target.value,
-        postedBy,
-        gender,
-      }));
-    }
     setValues((state) => ({
       ...state,
       [e.target.name]: e.target.value,
@@ -26,9 +12,9 @@ export const useForm = (
 
   const onSubmit = (e) => {
     e.preventDefault();
-    token
-      ? onSubmitHandler(values, token) && setValues(initialValues)
-      : onSubmitHandler(values) && setValues(initialValues);
+
+    onSubmitHandler(values);
+    return setValues(initialValues);
   };
 
   return { values, changeHandler, onSubmit };

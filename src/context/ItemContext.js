@@ -14,16 +14,6 @@ export const ItemProvider = ({ children }) => {
 
   const itemService = useTokenService(itemServiceFactory);
 
-  const onAddItemSubmit = async (itemData, token) => {
-    try {
-      const newItem = await itemService.create(itemData);
-      setItems((state) => (state ? [...state, newItem] : [newItem]));
-      navigate("/catalogue");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   useEffect(() => {
     service
       .getAllItems()
@@ -33,6 +23,16 @@ export const ItemProvider = ({ children }) => {
       .catch(() => console.log("No Content"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onAddItemSubmit = async (itemData) => {
+    try {
+      const newItem = await itemService.create(itemData);
+      setItems((state) => (state ? [...state, newItem] : [newItem]));
+      navigate("/catalogue");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const onEditItemSubmit = async (itemData, token) => {
     try {

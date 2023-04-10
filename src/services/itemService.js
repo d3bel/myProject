@@ -3,11 +3,11 @@ import { requestFactory } from "./requester";
 const baseUrl = "http://localhost:3030/data";
 
 export const itemServiceFactory = (token) => {
-  const request = requestFactory(token);
+  const service = requestFactory();
 
   const getAllItems = async () => {
     try {
-      const res = await request.get(`${baseUrl}/items`);
+      const res = await service.get(`${baseUrl}/items`);
       if (!res) {
         return;
       }
@@ -20,7 +20,7 @@ export const itemServiceFactory = (token) => {
 
   const getOneItem = async (itemId) => {
     try {
-      const result = await request.get(`${baseUrl}/items/${itemId}`);
+      const result = await service.get(`${baseUrl}/items/${itemId}`);
       return result;
     } catch (error) {
       console.log(error.message);
@@ -29,7 +29,10 @@ export const itemServiceFactory = (token) => {
 
   const create = async (data) => {
     try {
-      const result = await request.post(`${baseUrl}/items/`, data);
+      const result = await requestFactory(token).post(
+        `${baseUrl}/items/`,
+        data
+      );
       return result;
     } catch (error) {
       console.log(error.message);
@@ -38,7 +41,10 @@ export const itemServiceFactory = (token) => {
 
   const editItem = async (itemId, data) => {
     try {
-      const res = await request.put(`${baseUrl}/items/${itemId}`, data);
+      const res = await requestFactory(token).put(
+        `${baseUrl}/items/${itemId}`,
+        data
+      );
       return res;
     } catch (error) {
       console.log(error.message);
@@ -47,7 +53,7 @@ export const itemServiceFactory = (token) => {
 
   const deleteItem = async (itemId) => {
     try {
-      request.delete(`${baseUrl}/items/${itemId}`);
+      requestFactory(token).delete(`${baseUrl}/items/${itemId}`);
     } catch (error) {
       console.log(error.message);
     }

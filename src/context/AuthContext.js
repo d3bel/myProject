@@ -9,9 +9,9 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [auth, setAuth] = useStorage("accT", {});
-  const authService = AuthServiceFactory(auth.accessToken);
+  const [auth, setAuth] = useStorage("accessT", {});
 
+  const authService = AuthServiceFactory(auth.accessToken);
   const onLoginSubmit = async (data) => {
     try {
       const result = await authService.login(data);
@@ -27,9 +27,8 @@ export const AuthProvider = ({ children }) => {
       const { confirmPassword, ...regData } = data;
 
       if (confirmPassword !== regData.password) {
-        return new Error("Password does not match");
+        console.error("Password does not match");
       }
-
       const result = await authService.register(regData);
       setAuth(result);
       return navigate("/myProfile");
@@ -41,14 +40,13 @@ export const AuthProvider = ({ children }) => {
   const onLogout = async () => {
     try {
       await authService.logout();
-      localStorage.removeItem("accT", auth.accessToken);
+      localStorage.removeItem("accessT", auth.accessToken);
       setAuth({});
       navigate("/login");
     } catch (error) {
       console.log(error.message, ": Fail to logout");
     }
   };
-
   const getUserDetails = async () => {
     try {
       const result = await authService.me();
@@ -64,13 +62,13 @@ export const AuthProvider = ({ children }) => {
     onRegisterSubmit,
     onLoginSubmit,
     onLogout,
-    firstName: auth.firstName,
-    lastName: auth.lastName,
-    userId: auth._id,
-    gender: auth.gender,
-    token: auth.accessToken,
-    email: auth.email,
-    isAuthenticated: !!auth.accessToken,
+    firstName: auth?.firstName,
+    lastName: auth?.lastName,
+    userId: auth?._id,
+    gender: auth?.gender,
+    token: auth?.accessToken,
+    email: auth?.email,
+    isAuthenticated: !!auth?.accessToken,
   };
 
   return (
