@@ -80,7 +80,7 @@ export const MyProfile = () => {
               </li>
               <li>
                 <Link
-                  to={`"https://www.linkedin.com/in/${firstName}-${lastName}"`}
+                  to={`https://www.linkedin.com/in/${firstName}-${lastName}`}
                 >
                   {firstName} {lastName}
                 </Link>
