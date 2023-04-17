@@ -9,6 +9,7 @@ export const ItemContext = createContext();
 export const ItemProvider = ({ children }) => {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
+  const [errors, setErrors] = useState(null);
 
   const service = itemServiceFactory();
 
@@ -24,7 +25,30 @@ export const ItemProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (errors) {
+      setTimeout(() => {
+        setErrors(null);
+      }, 3000);
+    }
+  });
+
   const onAddItemSubmit = async (itemData) => {
+    if (!itemData.series) {
+      return setErrors("Series field is required!");
+    }
+    if (!itemData.country) {
+      return setErrors("Country field is required!");
+    }
+    if (!itemData.themes) {
+      return setErrors("Title field is required!");
+    }
+    if (!itemData.imageUrl) {
+      return setErrors("Image URL field is required!");
+    }
+    if (!itemData.format) {
+      return setErrors("Selecting category is required!");
+    }
     try {
       const newItem = await itemService.create(itemData);
       setItems((state) => (state ? [...state, newItem] : [newItem]));
@@ -70,6 +94,7 @@ export const ItemProvider = ({ children }) => {
     onRemoveItem,
     getItem,
     items,
+    errors
   };
   return (
     <>
