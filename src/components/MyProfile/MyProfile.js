@@ -2,45 +2,60 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useItemContext } from "../../context/ItemContext";
 import { Collection } from "./Collection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "./MyProfile.module.css";
+import { useItem } from "../../hooks/useItem";
+import { MyLikes } from "./MyLikes";
 
 export const MyProfile = () => {
   const [showModal, setShowModal] = useState(false);
-  const { gender, firstName, lastName, email, userId } = useAuthContext();
+  const [likeModal, setLikesModal] = useState(false);
+  const [likes, setLikes] = useState({});
   const { items } = useItemContext();
+  const { myLikes } = useItem();
+  const { gender, firstName, lastName, email, userId, token } =
+    useAuthContext();
+
+  useEffect(() => {
+    myLikes(userId).then((likes) => setLikes(likes));
+  }, [userId]);
 
   const myCollection = items.filter((item) => item._ownerId === userId);
-  const myLikes = "";
+
   const collectionModal = () => setShowModal(!showModal);
+  const likesModal = () => setLikesModal(!likeModal);
 
   return (
     <>
       <div className={styles["profile"]}>
         <h1>Welcome!</h1>
         <h4>This is your private space</h4>
-        {!showModal && myCollection.length > 0 && (
+        {!showModal && !likeModal && (
           <div className={styles["myButtons"]}>
-            <Link onClick={collectionModal} className={styles["myCollection"]}>
-              My Collection
-            </Link>
-
-            {myLikes && (
-              <Link className={styles["myLikes"]} to="/">
+            {myCollection.length > 0 && (
+              <Link
+                onClick={collectionModal}
+                className={styles["myCollection"]}
+              >
+                My Collection
+              </Link>
+            )}
+            {likes.length > 0 && (
+              <Link onClick={likesModal} className={styles["myLikes"]}>
                 My Favorites
               </Link>
             )}
-
-            <div className={styles["noContent"]}>
-              {!myLikes && <p>No Favorites yet!</p>}
-            </div>
+            {likes.length <= 0 && <p>No Favorites yet!</p>}
           </div>
         )}
         {showModal && (
           <Collection items={myCollection} collectionModal={collectionModal} />
         )}
-        {myCollection?.length === 0 && (
+        {likeModal && (
+          <MyLikes items={items} likes={likes} likesModal={likesModal} />
+        )}
+        {myCollection?.length === 0 && !likeModal && (
           <div className={styles["myButtons"]}>
             <Link to="/catalogue/add-item" className={styles["myCollection"]}>
               Add items to My Collection

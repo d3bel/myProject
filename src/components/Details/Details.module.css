@@ -257,7 +257,6 @@
 }
 
 .title {
-    /* border: #393838 solid 2px; */
     padding: 12px 19px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -266,7 +265,6 @@
 }
 
 .country {
-    /* border: #393838 solid 2px; */
     padding: 12px 19px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -275,20 +273,11 @@
 }
 
 .date {
-    /* border: #393838 solid 2px; */
     padding: 12px 19px;
     margin-bottom: 10px;
     border-radius: 5px;
     color: #000;
     width: 100%;
-    /* padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 45px;
-    color: #555; */
 
 }
 
@@ -386,7 +375,7 @@
 .cancelSubmit {
     font-size: 16px;
     border: #ff0000 solid 3px;
-    background-color: #393838 ;
+    background-color: #393838;
     border-style: groove;
     border-radius: 20px;
     color: #ffffff;
@@ -402,4 +391,75 @@
     background-color: #ff0000;
     border: #000000 solid 3px;
     color: rgb(0, 0, 0);
+}
+
+/* Likes & Dislikes */
+
+.likesButtons {
+    border-top-style: groove;
+    border-top: #000000 #2d333b solid 2px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.likesButtons p {
+    animation: blink 2s linear infinite;
+    font-size: 25px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    text-shadow: 4px 3px 5px #000000;
+    color: #bbbaba;
+}
+
+.like {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(126, 126, 49);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.like:hover {
+    background-color: #000000;
+    border: rgb(126, 126, 49) solid 1px;
+    color: rgb(126, 126, 49);
+}
+
+.dislike {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 0, 0);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dislike:hover {
+    background-color: #030303;
+    border: rgb(255, 0, 0) solid 1px;
+    color: rgb(255, 0, 0);
 }

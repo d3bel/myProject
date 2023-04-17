@@ -59,6 +59,21 @@ export const ItemProvider = ({ children }) => {
   };
 
   const onEditItemSubmit = async (itemData, token) => {
+    if (!itemData.series) {
+      return setErrors("Series field is required!");
+    }
+    if (!itemData.country) {
+      return setErrors("Country field is required!");
+    }
+    if (!itemData.themes) {
+      return setErrors("Title field is required!");
+    }
+    if (!itemData.imageUrl) {
+      return setErrors("Image URL field is required!");
+    }
+    if (!itemData.format) {
+      return setErrors("Selecting category is required!");
+    }
     try {
       const editedItem = await itemServiceFactory(token).editItem(
         itemData._id,
@@ -88,13 +103,15 @@ export const ItemProvider = ({ children }) => {
     return items.find((item) => item?._id === itemId);
   };
 
+
+
   const contextData = {
     onAddItemSubmit,
     onEditItemSubmit,
     onRemoveItem,
     getItem,
     items,
-    errors
+    errors,
   };
   return (
     <>

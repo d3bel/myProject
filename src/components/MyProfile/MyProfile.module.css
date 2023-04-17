@@ -59,8 +59,10 @@
     border: #8e8e8e solid 1px;
 }
 
-.noContent p {
+.myButtons p {
     margin-top: 20px;
+    margin-left: 10px;
+    padding: 10px 20px;
     color: #363637;
     text-shadow: 1px 1px #0c0937;
     font-size: 25px;
@@ -88,6 +90,8 @@
     color: #e8e8e8;
     border: #8e8e8e solid 1px;
 }
+
+/* Modal start */
 
 .modal {
     display: flex;

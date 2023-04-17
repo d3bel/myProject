@@ -8,6 +8,7 @@ import { Comments } from "../Comments/Comments";
 import { FormComments } from "../Comments/FormComments";
 
 import styles from "./Details.module.css";
+import { Likes } from "./Likes";
 
 export const Details = () => {
   const [confirmation, setConfirmation] = useState(false);
@@ -16,6 +17,8 @@ export const Details = () => {
     item,
     isAuthenticated,
     isOwner,
+    onClickLikes,
+    onClickDislike,
     onEditComment,
     removeComment,
     onCreateComment,
@@ -40,7 +43,7 @@ export const Details = () => {
             ) : (
               <img className={styles["coin-img"]} src={item.imageUrl} alt="" />
             )}
-            
+
             <div className={styles["itemInfo"]}>
               <h2>Theme: {item.themes}</h2>
               <h3>Type: {item.format}</h3>
@@ -58,39 +61,45 @@ export const Details = () => {
                   <small>{item.description}</small>
                 </>
               )}
+              {isAuthenticated && !isOwner && (
+                <Likes
+                  onClickLikes={onClickLikes}
+                  onClickDislike={onClickDislike}
+                  item={item}
+                />
+              )}
               {isOwner && (
-              <div className={styles["itemButtons"]}>
-                <Button
-                  className={styles["edit"]}
-                  as={Link}
-                  to={`/catalogue/edit/${itemId}`}
-                >
-                  Edit
-                </Button>
-                <Button className={styles["remove"]} onClick={handleRemove}>
-                  Remove
-                </Button>
-                {confirmation && (
-                  <div className={styles["confirmation-p"]}>
-                    <p>Are you sure you want to remove this item?</p>
-                    <Button
-                      className={styles["confirmation-yes"]}
-                      onClick={onRemoveItemHandler}
-                    >
-                      Yes
-                    </Button>
-                    <Button
-                      className={styles["confirmation-no"]}
-                      onClick={() => setConfirmation(false)}
-                    >
-                      No
-                    </Button>
-                  </div>
-                )}
-              </div>
-            )}
+                <div className={styles["itemButtons"]}>
+                  <Button
+                    className={styles["edit"]}
+                    as={Link}
+                    to={`/catalogue/edit/${itemId}`}
+                  >
+                    Edit
+                  </Button>
+                  <Button className={styles["remove"]} onClick={handleRemove}>
+                    Remove
+                  </Button>
+                  {confirmation && (
+                    <div className={styles["confirmation-p"]}>
+                      <p>Are you sure you want to remove this item?</p>
+                      <Button
+                        className={styles["confirmation-yes"]}
+                        onClick={onRemoveItemHandler}
+                      >
+                        Yes
+                      </Button>
+                      <Button
+                        className={styles["confirmation-no"]}
+                        onClick={() => setConfirmation(false)}
+                      >
+                        No
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-            
           </div>
         </div>
       </div>

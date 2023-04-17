@@ -58,6 +58,7 @@ export const itemServiceFactory = (token) => {
       console.log(error.message);
     }
   };
+  
 
   return {
     getAllItems,

@@ -8,6 +8,7 @@ import { useItemContext } from "../../context/ItemContext";
 import { itemServiceFactory } from "../../services/itemService";
 import { useTokenService } from "../../hooks/useTokenService";
 import { useItem } from "../../hooks/useItem";
+import { Errors } from "../Errors/Errors";
 
 import styles from "./Details.module.css";
 
@@ -29,7 +30,7 @@ export const Edit = () => {
     postedBy: "",
   });
 
-  const { onEditItemSubmit } = useItemContext();
+  const { onEditItemSubmit, errors } = useItemContext();
   const itemService = useTokenService(itemServiceFactory);
   const { token } = useItem(itemId);
 
@@ -60,6 +61,7 @@ export const Edit = () => {
 
   return (
     <div key={values._id} className={styles["editItem"]}>
+      {errors && <Errors errors={errors} />}
       <div className={styles["editItemForm"]}>
         <h1>Edit Item</h1>
         <Form id="add-item" onSubmit={onSubmit}>

@@ -4,6 +4,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { useTokenService } from "./useTokenService";
 import { itemServiceFactory } from "../services/itemService";
 import { commentsService } from "../services/commentsService";
+import { likesService } from "../services/likesService";
 
 export const useItem = (itemId) => {
   const [item, setItem] = useState({});
@@ -13,20 +14,39 @@ export const useItem = (itemId) => {
 
   const itemService = useTokenService(itemServiceFactory);
   const commentService = useTokenService(commentsService);
+  const likeService = useTokenService(likesService);
 
   useEffect(() => {
+    if (!itemId) return;
     Promise.all([
       itemService.getOneItem(itemId),
       commentService.getAllComments(itemId),
+      likeService.getItemLikes(itemId, userId),
     ])
-      .then(([itemData, commentsData]) => {
-        setItem({ ...itemData, comments: commentsData });
+      .then(([itemData, commentsData, likesData]) => {
+        setItem({ ...itemData, comments: commentsData, likes: likesData });
       })
       .catch((error) => {
         console.log(error.message);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId]);
+
+  const onClickLikes = async (itemId) => {
+    const likes = await likeService.likeClicked(itemId);
+    setItem((state) => ({
+      ...state,
+      likes: [...state.likes, { ...likes }],
+    }));
+  };
+
+  const onClickDislike = async (itemId) => {
+    await likeService.dislikeClicked(itemId);
+    setItem((state) => ({
+      ...state,
+      likes: state.likes.filter((like) => like._id !== itemId),
+    }));
+  };
 
   const onCreateComment = async (commentData, token) => {
     try {
@@ -84,6 +104,11 @@ export const useItem = (itemId) => {
     }
   };
 
+  const myLikes = async (userId) => {
+    const result = await likeService.getMyLikes(userId);
+    return result
+  };
+
   const isOwner = userId === item._ownerId;
 
   return {
@@ -94,6 +119,9 @@ export const useItem = (itemId) => {
     removeComment,
     onCreateComment,
     onEditComment,
+    onClickLikes,
+    onClickDislike,
+    myLikes,
     userId,
   };
 };
