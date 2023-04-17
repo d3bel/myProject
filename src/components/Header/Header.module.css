@@ -29,6 +29,12 @@
     float: left;
 }
 
+.navigation a:hover {
+    font-size: 25px;
+    text-shadow: 3px 2px #d7d7d7;
+    color: #000000;
+}
+
 .navigation ul {
     float: right;
 }
@@ -40,12 +46,17 @@
 .navigation li a {
     color: #939292;
     font-size: 18px;
-    line-height: 20px;
     padding: 0px 20px;
 }
 
+.navigation li a:hover {
+    font-size: 25px;
+    text-shadow: 3px 2px #d7d7d7;
+    color: #000000;
+}
+
 .buttonLogin {
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 5px;
 }
 
@@ -54,7 +65,7 @@
 }
 
 .buttonRegister {
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 5px;
 }
 
@@ -63,7 +74,7 @@
 }
 
 .buttonCatalogue {
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 5px;
 
 }
@@ -72,17 +83,8 @@
     background-color: #c4c4c438;
 }
 
-.buttonCreate {
-    padding: 4px 12px;
-    border-radius: 5px;
-}
-
-.buttonCreate:hover {
-    background-color: #c4c4c438;
-}
-
 .buttonLogout {
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 5px;
 }
 
@@ -91,7 +93,7 @@
 }
 
 .buttonProfile {
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 5px;
 }
 

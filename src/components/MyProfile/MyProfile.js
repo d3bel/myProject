@@ -1,24 +1,26 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useItemContext } from "../../context/ItemContext";
-import { Collection } from "./Collection";
 import { useEffect, useState } from "react";
 
-import styles from "./MyProfile.module.css";
 import { useItem } from "../../hooks/useItem";
 import { MyLikes } from "./MyLikes";
+import { Collection } from "./Collection";
+
+import styles from "./MyProfile.module.css";
 
 export const MyProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const [likeModal, setLikesModal] = useState(false);
   const [likes, setLikes] = useState({});
+
+  const { gender, firstName, lastName, email, userId } = useAuthContext();
   const { items } = useItemContext();
   const { myLikes } = useItem();
-  const { gender, firstName, lastName, email, userId, token } =
-    useAuthContext();
 
   useEffect(() => {
     myLikes(userId).then((likes) => setLikes(likes));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   const myCollection = items.filter((item) => item._ownerId === userId);
