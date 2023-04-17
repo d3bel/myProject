@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useStorage } from "../hooks/useStorage";
@@ -10,19 +10,48 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [auth, setAuth] = useStorage("accessT", {});
+  const [errors, setErrors] = useState(null);
 
   const authService = AuthServiceFactory(auth.accessToken);
-  const onLoginSubmit = async (data) => {
-    try {
-      const result = await authService.login(data);
-      setAuth(result);
-      return navigate("/myProfile");
-    } catch (error) {
-      console.log(error.message, ": Failed to login");
+
+  useEffect(() => {
+    if (errors) {
+      setTimeout(() => {
+        setErrors(null);
+      }, 3000);
     }
+  });
+
+  const onLoginSubmit = async (data) => {
+    if (!data.email || !data.password) {
+      return setErrors("All Fields are required!");
+    }
+    const result = await authService.login(data);
+    if (result.message) {
+      return setErrors(result.message);
+    }
+    setAuth(result);
+    return navigate("/myProfile");
   };
 
   const onRegisterSubmit = async (data) => {
+    const validEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (
+      !data.firstName ||
+      !data.lastName ||
+      !data.email ||
+      !data.password ||
+      !data.confirmPassword ||
+      !data.gender
+    ) {
+      return setErrors("All fields are required!");
+    }
+    if (!validEmail.test(data.email)) {
+      return setErrors("Please enter a valid email address!");
+    }
+    if (data.password !== data.confirmPassword) {
+      return setErrors("Passwords don't match!");
+    }
     try {
       const { confirmPassword, ...regData } = data;
 
@@ -30,6 +59,11 @@ export const AuthProvider = ({ children }) => {
         console.error("Password does not match");
       }
       const result = await authService.register(regData);
+
+      if (result.message) {
+        return setErrors(result.message);
+      }
+      console.log(result.message);
       setAuth(result);
       return navigate("/myProfile");
     } catch (error) {
@@ -62,6 +96,7 @@ export const AuthProvider = ({ children }) => {
     onRegisterSubmit,
     onLoginSubmit,
     onLogout,
+    errors,
     firstName: auth?.firstName,
     lastName: auth?.lastName,
     userId: auth?._id,

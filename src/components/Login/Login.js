@@ -6,13 +6,17 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 
+import styles from "./Login.module.css";
+import { Errors } from "../Errors/Errors";
+
 const LoginFormKeys = {
   Email: "email",
   Password: "password",
 };
 
 export const Login = () => {
-  const { onLoginSubmit } = useContext(AuthContext);
+  const { onLoginSubmit, errors } = useContext(AuthContext);
+
   const { values, changeHandler, onSubmit } = useForm(
     {
       [LoginFormKeys.Email]: "",
@@ -20,44 +24,32 @@ export const Login = () => {
     },
     onLoginSubmit
   );
+
   return (
-    <div
-      className="container-fluid bg-dark text-light py-5"
-      style={{ marginBottom: "0px" }}
-    >
-      <div
-        className="container py-5 bg-secondary"
-        style={{
-          width: "30%",
-          margin: "120px auto",
-          borderStyle: "groove",
-          borderColor: "honeydew",
-        }}
-      >
-        <h1 style={{ width: "10%", margin: "0 auto" }}>Login</h1>
-        <Form
-          id="login"
-          className="mb-3"
-          style={{ marginLeft: "15px", width: "80%" }}
-          onSubmit={onSubmit}
-        >
+    <div className={styles["login"]}>
+      {errors && <Errors errors={errors} />}
+      <div className={styles["loginForm"]}>
+        <h1>Login</h1>
+        <Form id="login" className={styles["loginLabel"]} onSubmit={onSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+              className={styles["email"]}
               type="email"
               name={LoginFormKeys.Email}
               value={values[LoginFormKeys.Email]}
               onChange={changeHandler}
               placeholder="Enter email"
             />
-            <Form.Text className="text-muted">
+            <Form.Text className={styles["info"]}>
               We'll never share your email with anyone else.
             </Form.Text>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              className={styles["password"]}
               type="password"
               name={LoginFormKeys.Password}
               value={values[LoginFormKeys.Password]}
@@ -65,17 +57,18 @@ export const Login = () => {
               placeholder="Password"
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button variant="outline-warning" type="submit">
+          <Button
+            className={styles["send"]}
+            // variant="outline-warning"
+            type="submit"
+          >
             Sign in
           </Button>
-          <p className="field text-info">
-            <span>
-              If you don't have profile click <Link className="text-dark" to="/register">Here</Link>
-            </span>
-          </p>
+          <div className={styles["loginInfo"]}>
+            <p>
+              If you don't have profile click <Link to="/register">Here!</Link>
+            </p>
+          </div>
         </Form>
       </div>
     </div>

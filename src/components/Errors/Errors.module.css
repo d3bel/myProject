@@ -1,0 +1,16 @@
+.error {
+    position: fixed;
+    right: 80px;
+    display: block;
+    text-align: center;
+    height: auto;
+    width: 380px;
+}
+
+.error p {
+    border: 2px solid rgb(0, 0, 0);
+    background: rgb(227, 161, 37);
+    font-size: 25px;
+    height: auto;
+    border-radius: 30px;
+}

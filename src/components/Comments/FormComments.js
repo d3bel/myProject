@@ -4,6 +4,8 @@ import { Button } from "react-bootstrap";
 import { useForm } from "../../hooks/useForm";
 import { useAuthContext } from "../../context/AuthContext";
 
+import styles from "./Comments.module.css";
+
 export const FormComments = ({ isAuthenticated, onCreateComment }) => {
   const { token, gender, firstName, lastName } = useAuthContext();
 
@@ -22,56 +24,51 @@ export const FormComments = ({ isAuthenticated, onCreateComment }) => {
     onCreateComment(commentData, token);
   };
 
+  const isComment = true;
   const { values, changeHandler, onSubmit } = useForm(
     {
       comment: "",
     },
-    onCommentSubmit
+    onCommentSubmit,
+    isComment
   );
 
   return (
-    <div className="bg-secondary p-5">
-      <h3 className="mb-4 text-center">Leave Link comment</h3>
+    <div className={styles["comment"]}>
+      <h3>Leave comment</h3>
       <form onSubmit={onSubmit}>
-        <div className="row g-3">
+        <div className={styles["commentForm"]}>
           {isAuthenticated && (
             <>
-              <div className="col-12">
-                <textarea
-                  className="form-control bg-white border-0"
-                  name="comment"
-                  value={values.comment}
-                  onChange={changeHandler}
-                  rows="5"
-                  placeholder="Comment..."
-                ></textarea>
-              </div>
-              <div className="col-12">
-                <Button className="btn btn-success w-100 py-3" type="submit">
+              <textarea
+                name="comment"
+                value={values.comment}
+                onChange={changeHandler}
+                rows="5"
+                cols="5"
+                placeholder="Comment..."
+              ></textarea>
+
+              <div>
+                <Button className={styles["leaveComment"]} type="submit">
                   Leave Your Comment
                 </Button>
               </div>
             </>
           )}
           {!isAuthenticated && (
-            <>
-              <Button
-                className="btn w-100 py-3"
-                variant="outline-warning"
-                as={Link}
-                to="/login"
-              >
+            <div className={styles["authorized"]}>
+              <Button className={styles["loginButton"]} as={Link} to="/login">
                 Login
               </Button>
               <Button
-                className="btn w-100 py-3"
-                variant="outline-danger"
+                className={styles["registerButton"]}
                 as={Link}
                 to="/register"
               >
                 Register
               </Button>
-            </>
+            </div>
           )}
         </div>
       </form>

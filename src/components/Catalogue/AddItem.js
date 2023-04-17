@@ -6,6 +6,8 @@ import { useForm } from "../../hooks/useForm";
 import { useAuthContext } from "../../context/AuthContext";
 import { useItemContext } from "../../context/ItemContext";
 
+import styles from "./Catalogue.module.css";
+
 export const AddItem = () => {
   const { firstName, lastName, gender } = useAuthContext();
   const { onAddItemSubmit } = useItemContext();
@@ -32,46 +34,23 @@ export const AddItem = () => {
       faceValue: "",
       printRun: "",
       postedBy: "",
+      description: "",
       gender: "",
     },
     onItemSubmit
   );
 
   return (
-    <div
-      className="container-fluid bg-dark text-light py-5"
-      style={{ marginBottom: "0px" }}
-    >
-      <div
-        className="container py-5 bg-secondary"
-        style={{
-          width: "30%",
-          margin: "120px auto",
-          borderStyle: "groove",
-          borderColor: "honeydew",
-        }}
-        key={values._id}
-      >
-        <h1 style={{ width: "10%", margin: "0 auto" }}>Add Item</h1>
-        <Form
-          id="add-item"
-          className="mb-3"
-          style={{ marginLeft: "15px", width: "80%" }}
-          onSubmit={onSubmit}
-        >
-          <fieldset
-            className="container"
-            style={{
-              margin: "20px auto",
-              borderStyle: "groove",
-              borderColor: "honeydew",
-            }}
-          >
-            <Form.Group className="mb-3">
+    <div className={styles["addItem"]}>
+      <div className={styles["addItemForm"]} key={values._id}>
+        <h1>Add Item</h1>
+        <Form onSubmit={onSubmit}>
+          <fieldset>
+            <Form.Group>
               <Form.Label as="label" column>
                 Select Category:
               </Form.Label>
-              <Col sm={10}>
+              <Col sm={10} className={styles["radio"]}>
                 <Form.Check
                   type="radio"
                   label="Stamp"
@@ -91,7 +70,7 @@ export const AddItem = () => {
               </Col>
             </Form.Group>
           </fieldset>
-          <Form.Group controlId="themes">
+          <Form.Group className={styles["title"]} controlId="themes">
             <Form.Label>Title:</Form.Label>
             <Form.Control
               type="text"
@@ -102,7 +81,7 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group controlId="country">
+          <Form.Group className={styles["country"]} controlId="country">
             <Form.Label>Country:</Form.Label>
             <Form.Control
               type="text"
@@ -113,7 +92,7 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="issuedOn">
+          <Form.Group className={styles["date"]} controlId="issuedOn">
             <Form.Label>Date of issue:</Form.Label>
             <Form.Control
               type="date"
@@ -124,7 +103,7 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="faceValue">
+          <Form.Group className={styles["value"]} controlId="faceValue">
             <Form.Label>Value:</Form.Label>
             <Form.Control
               type="text"
@@ -135,7 +114,7 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="imageUrl">
+          <Form.Group className={styles["imageUrl"]} controlId="imageUrl">
             <Form.Label>Image URL:</Form.Label>
             <Form.Control
               as="input"
@@ -147,10 +126,10 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="printRun">
+          <Form.Group className={styles["prints"]} controlId="printRun">
             <Form.Label>Printed quantity:</Form.Label>
             <Form.Control
-              type="number"
+              type="text"
               name="printRun"
               value={values.printRun}
               onChange={changeHandler}
@@ -158,7 +137,7 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="series">
+          <Form.Group className={styles["series"]} controlId="series">
             <Form.Label>Series:</Form.Label>
             <Form.Control
               type="text"
@@ -169,7 +148,7 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="printedBy">
+          <Form.Group className={styles["printedBy"]} controlId="printedBy">
             <Form.Label>Printed by:</Form.Label>
             <Form.Control
               type="text"
@@ -180,7 +159,21 @@ export const AddItem = () => {
               required
             />
           </Form.Group>
-          <Button variant="outline-warning" type="submit">
+          <Form.Group className={styles["description"]} controlId="description">
+            <Form.Label>Item Information:</Form.Label>
+            <Form.Control
+              type="text"
+              as="textarea"
+              maxLength={200}
+              rows={3}
+              name="description"
+              value={values.description}
+              onChange={changeHandler}
+              placeholder="Enter information about the item"
+              required
+            />
+          </Form.Group>
+          <Button className={styles["send"]} type="submit">
             Submit Item
           </Button>
         </Form>

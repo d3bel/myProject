@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import styles from "./Comments.module.css";
 
 export const EditComment = ({ comment, onSave, onCancel }) => {
   const [editedComment, setEditedComment] = useState(comment.comments.comments);
@@ -14,35 +15,18 @@ export const EditComment = ({ comment, onSave, onCancel }) => {
   return (
     <div
       key={comment._id}
-      className="popup"
-      style={{
-        width: "110%",
-        borderRadius: "10px",
-        backgroundColor: "GrayText",
-        padding: "10px",
-        marginBottom: "5px",
-      }}
+      className={styles["commentForm"]}
     >
       <form>
         <textarea
-        style={{ maxWidth: "150%" }}
           value={editedComment}
           onChange={(e) => setEditedComment(e.target.value)}
         />
       </form>
-      <Button
-        style={{ margin: "10px" }}
-        className="rounded-pill"
-        variant="success"
-        onClick={handleSave}
-      >
+      <Button className={styles["send"]} onClick={handleSave}>
         Save
       </Button>
-      <Button
-        className="rounded-pill"
-        variant="outline-danger"
-        onClick={handleCancel}
-      >
+      <Button className={styles["sendCancel"]} onClick={handleCancel}>
         Cancel
       </Button>
     </div>

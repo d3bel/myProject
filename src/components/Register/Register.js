@@ -6,6 +6,9 @@ import Row from "react-bootstrap/Row";
 
 import { useAuthContext } from "../../context/AuthContext";
 import { useForm } from "../../hooks/useForm";
+import { Errors } from "../Errors/Errors";
+
+import styles from "./Register.module.css";
 
 const RegisterFormKeys = {
   FirstName: "firstName",
@@ -14,10 +17,11 @@ const RegisterFormKeys = {
   Password: "password",
   ConfirmPassword: "confirmPassword",
   Role: "gender",
+  Description: "description",
 };
 
 export const Register = () => {
-  const { onRegisterSubmit } = useAuthContext();
+  const { onRegisterSubmit, errors } = useAuthContext();
 
   const { values, changeHandler, onSubmit } = useForm(
     {
@@ -27,136 +31,119 @@ export const Register = () => {
       [RegisterFormKeys.Password]: "",
       [RegisterFormKeys.ConfirmPassword]: "",
       [RegisterFormKeys.Role]: "",
+      [RegisterFormKeys.Description]: "",
     },
     onRegisterSubmit
   );
 
   return (
-    <div
-      className="container-fluid bg-dark text-light py-5"
-      style={{ marginBottom: "0px" }}
-    >
-      <div
-        className="bg-secondary"
-        style={{
-          width: "30%",
-          margin: "120px auto",
-          borderStyle: "groove",
-          borderColor: "honeydew",
-        }}
-      >
-        <h1
-          style={{
-            width: "10%",
-            margin: "10px auto",
-            marginLeft: "40%",
-          }}
-        >
-          Register
-        </h1>
-        <Form
-          className="mb-3"
-          style={{ marginLeft: "15px" }}
-          onSubmit={onSubmit}
-        >
-          <Form.Group
-            as={Row}
-            className="mb-3"
-            controlId="formHorizontalFirstName"
-          >
+    <div className={styles["register"]}>
+      {errors && <Errors errors={errors} />}
+      <div className={styles["registerForm"]}>
+        <h1 className={styles["registerForm h1"]}>Register</h1>
+        <Form className={styles["registerForm label"]} onSubmit={onSubmit}>
+          <Form.Group as={Row} controlId="formHorizontalFirstName">
             <Form.Label column sm={3}>
               First name
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                className={styles["firstName"]}
                 type="text"
                 name={RegisterFormKeys.FirstName}
                 value={values[RegisterFormKeys.FirstName]}
                 placeholder="First name"
-                required
                 onChange={changeHandler}
               />
             </Col>
           </Form.Group>
 
-          <Form.Group
-            as={Row}
-            className="mb-3"
-            controlId="formHorizontalLastName"
-          >
+          <Form.Group as={Row} controlId="formHorizontalLastName">
             <Form.Label column sm={3}>
               Last name
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                className={styles["lastName"]}
                 type="text"
                 name={RegisterFormKeys.LastName}
                 value={values[RegisterFormKeys.LastName]}
                 placeholder="Last name"
-                required
                 onChange={changeHandler}
               />
             </Col>
           </Form.Group>
 
-          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+          <Form.Group as={Row} controlId="formHorizontalEmail">
             <Form.Label column sm={3}>
               Email
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                className={styles["email"]}
                 type="email"
                 name={RegisterFormKeys.Email}
                 value={values[RegisterFormKeys.Email]}
                 placeholder="Email"
-                required
                 onChange={changeHandler}
               />
             </Col>
           </Form.Group>
 
-          <Form.Group
-            as={Row}
-            className="mb-3"
-            controlId="formHorizontalPassword"
-          >
+          <Form.Group as={Row} controlId="formHorizontalPassword">
             <Form.Label column sm={3}>
               Password
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                className={styles["password"]}
                 type="password"
                 name={RegisterFormKeys.Password}
                 value={values[RegisterFormKeys.Password]}
                 placeholder="Password"
-                required
                 onChange={changeHandler}
               />
             </Col>
           </Form.Group>
-          <Form.Group
-            as={Row}
-            className="mb-3"
-            controlId="formHorizontalRepeatPassword"
-          >
-            <Form.Label column sm={3}>
-              Re-Password
+          <Form.Group as={Row} controlId="formHorizontalRepeatPassword">
+            <Form.Label column sm={4}>
+              Confirm Password
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                className={styles["confirmPassword"]}
                 type="password"
                 name={RegisterFormKeys.ConfirmPassword}
                 value={values[RegisterFormKeys.ConfirmPassword]}
                 placeholder="Repeat password"
-                required
                 onChange={changeHandler}
               />
             </Col>
           </Form.Group>
+
+          <Form.Group>
+            <Form.Label column lg={4}>
+              About you
+            </Form.Label>
+            <Col sm={10}>
+              <Form.Control
+                className={styles["about"]}
+                as="textarea"
+                maxLength={250}
+                rows={3}
+                type="text"
+                name={RegisterFormKeys.Description}
+                value={values[RegisterFormKeys.Description]}
+                placeholder="a few words about your passion on coins or post marks..."
+                onChange={changeHandler}
+              />
+            </Col>
+          </Form.Group>
+
           <fieldset>
             <Form.Group as={Row} className="mb-3">
-              <Form.Label as="legend" column sm={2}>
-                User Type
+              <Form.Label as="legend" column sm={3}>
+                User Type:
               </Form.Label>
               <Col sm={10}>
                 <Form.Check
@@ -166,17 +153,7 @@ export const Register = () => {
                   name={RegisterFormKeys.Role}
                   id="gender1"
                   value="/assets/maleIcon.png"
-                  required
                 />
-                {/* {role === "admin" && (
-                  <Form.Control
-                    id="admin-field"
-                    type="password"
-                    style={{ width: "50%", display: "block" }}
-                    label="Enter admin code:"
-                    required
-                  />
-                )} */}
                 <Form.Check
                   type="radio"
                   label="Female"
@@ -184,32 +161,23 @@ export const Register = () => {
                   name={RegisterFormKeys.Role}
                   id="gender2"
                   value="/assets/femaleIcon.png"
-                  required
                 />
               </Col>
             </Form.Group>
           </fieldset>
-          <Form.Group as={Row} className="mb-3" controlId="formHorizontalCheck">
-            <Col sm={{ span: 10, offset: 2 }}>
-              <Form.Check label="Remember me" />
-            </Col>
-          </Form.Group>
 
-          <Form.Group as={Row} className="mb-3">
-            <Col sm={{ span: 10, offset: 2 }}>
-              <Button variant="outline-warning" type="submit">
-                Sign in
+          <Form.Group>
+            <Col>
+              <Button className={styles["send"]} type="submit">
+                Submit
               </Button>
             </Col>
           </Form.Group>
-          <p className="field text-info">
-            <span>
-              If you already have profile click{" "}
-              <Link className="text-dark" to="/login">
-                Here
-              </Link>
-            </span>
-          </p>
+          <div className={styles["registerInfo"]}>
+            <p>
+              If you already have a profile click<Link to="/login"> Here!</Link>
+            </p>
+          </div>
         </Form>
       </div>
     </div>

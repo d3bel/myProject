@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useForm = (initialValues, onSubmitHandler) => {
+export const useForm = (initialValues, onSubmitHandler, isComment) => {
   const [values, setValues] = useState(initialValues);
 
   const changeHandler = (e) => {
@@ -14,7 +14,7 @@ export const useForm = (initialValues, onSubmitHandler) => {
     e.preventDefault();
 
     onSubmitHandler(values);
-    return setValues(initialValues);
+    if (isComment) setValues(initialValues);
   };
 
   return { values, changeHandler, onSubmit };

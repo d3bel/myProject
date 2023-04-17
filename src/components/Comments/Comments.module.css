@@ -1,0 +1,242 @@
+.comment {
+    justify-content: center;
+    border-top: #ffffff solid 1px;
+    color: #000 !important;
+    width: 100%;
+}
+
+.comment h3 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.commentsInfo {
+    margin: 5em auto;
+    padding: 2em;
+    width: 30%;
+    border-radius: 100px;
+    border-color: #2d333b;
+    background: #1b1f24;
+    box-shadow: 0 2px 2px 3px #ffffff;
+}
+
+.commentsInfo img {
+    border: #000000 solid 4px;
+    margin-top: -30px;
+    margin-left: 50px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.commentsInfo h4 {
+    color: #b4b4b4;
+    font-size: 25px;
+    line-height: 50px;
+    font-weight: 500;
+    margin-top: -115px;
+    margin-left: 160px;
+}
+
+.commentsInfo small {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.commentsInfo p {
+    word-wrap: break-word;
+    font-size: 20px;
+    line-height: 20px;
+    color: #ffeeee;
+    margin-left: 150px;
+    padding: 30px;
+}
+
+.editComment {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: rgb(26, 26, 26);
+    background-color: rgb(68, 68, 68);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.editComment:hover {
+    background-color: #000000;
+    border: #4dff00 solid 1px;
+    color: rgb(6, 255, 35);
+}
+
+.removeComment {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: rgb(26, 26, 26);
+    background-color: rgb(68, 68, 68);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.removeComment:hover {
+    background-color: #030303;
+    border: #ff0000 solid 1px;
+    color: rgb(255, 0, 0);
+}
+
+.commentForm textarea {
+    font-size: xx-large;
+    display: flex;
+    outline-style: groove;
+    background-color: #1b1f24;
+    color: #b4b4b4;
+    justify-content: center;
+    margin: 25px auto;
+    border-radius: 10px;
+    border: #414f60 solid 3px;
+    width: 50%;
+    padding: 10px;
+}
+
+.send {
+    justify-content: center;
+    margin: 0 auto;
+    outline-style: groove;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    border: #000 solid 3px;
+    background-color: #2f2e2e;
+    color: #4dff00;
+    padding: 11px 47px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.leaveComment {
+    color: rgb(26, 26, 26);
+    background-color: rgb(68, 68, 68);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.leaveComment:hover {
+    background-color: #000000;
+    border: #4dff00 solid 1px;
+    color: rgb(6, 255, 35);
+}
+
+.authorized {
+    display: flex;
+    justify-content: center;
+}
+
+.loginButton {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: rgb(26, 26, 26);
+    background-color: rgb(37, 131, 49);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.loginButton:hover {
+    background-color: #000000;
+    border: rgb(37, 131, 49);
+    color: rgb(37, 131, 49);
+}
+
+.registerButton {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: rgb(26, 26, 26);
+    background-color: rgb(211, 13, 13);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.registerButton:hover {
+    background-color: #000000;
+    border: rgb(211, 13, 13) solid 1px;
+    color: rgb(211, 13, 13);
+}
+
+.send:hover {
+    background-color: #539142;
+    border: #ffffff solid 3px;
+    color: rgb(0, 0, 0);
+}
+
+.sendCancel {
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    outline-style: groove;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+
+    border: #000 solid 3px;
+    background-color: #2f2e2e;
+    color: #ff0000;
+    padding: 11px 37px;
+    display: flex;
+}
+
+.sendCancel:hover {
+    background-color: #ff0000;
+    border: #ffffff solid 3px;
+    color: rgb(0, 0, 0);
+}
+
+
+/* .likes {
+    display: flex;
+    justify-content: right;
+}
+
+.likes span {
+    font-size: 20px;
+    margin-right: 10px;
+    height: 25px;
+}
+
+.likes button {
+    float: right;
+    font-size: 15px;
+    background-color: #ffc107;
+    border-radius: 30px;
+    padding: 0px 28px;
+}
+
+
+
+.likeComment:hover {
+    background-color: #000000;
+    border: #0353ff solid 1px;
+    color: rgb(0, 68, 255);
+} */

@@ -1,0 +1,328 @@
+/* Catalogue */
+.catalogue {
+    background-color: #373737;
+    padding-top: 327px;
+    padding-bottom: 447px;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.catalogue h2 {
+    text-align: center;
+    padding: 0;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 50px;
+    font-size: 70px;
+    padding-bottom: 60px;
+    font-family: "Agency FB";
+}
+
+.catalogue p {
+    border-top: #c0c0c0 solid 1px;
+    text-align: center;
+    font-size: 30px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #b5b5b5;
+    padding: 30px 0px;
+    font-weight: 500;
+}
+
+.catalogue-p-button {
+    margin-left: 10px;
+    color: rgb(88, 193, 7);
+    background-color: rgb(122, 122, 122);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.catalogue-p-button:hover {
+    background-color: #6eb102;
+}
+
+.itemList {
+    margin: auto;
+    width: 50%;
+}
+
+.noItem h3 {
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 70px;
+    font-family: "Agency FB";
+    margin-top: 150px;
+}
+
+.noItem p {
+    color: #f8f9fa;
+    text-shadow: 1px 1px #ff0101;
+    font-size: 20px;
+    font-style: italic;
+    padding: 11px 67px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+/* Items */
+
+.item {
+    border-top: #a69b9b solid 1px;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    flex-direction: column;
+}
+
+.stamp-img {
+    float: left;
+    margin: 10px;
+    width: 300px;
+    height: 365px;
+    transition: 1.5s ease;
+    display: -webkit-box;
+}
+
+.stamp-img:hover {
+    box-shadow:
+        1px 1px #bdbcbc,
+        2px 2px #bdbcbc,
+        3px 3px #bdbcbc,
+        4px 4px #bdbcbc,
+        5px 5px #bdbcbc,
+        6px 6px #bdbcbc;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+    transition: .5s ease;
+}
+
+.coin-img {
+    border-radius: 50%;
+    float: left;
+    margin: 10px;
+    width: 300px;
+    height: 365px;
+    transition: 1.5s ease;
+    display: -webkit-box;
+}
+
+.coin-img:hover {
+    box-shadow:
+        1px 1px #bdbcbc,
+        2px 2px #bdbcbc,
+        3px 3px #bdbcbc,
+        4px 4px #bdbcbc,
+        5px 5px #bdbcbc,
+        6px 6px #bdbcbc;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+    transition: .5s ease;
+}
+
+.detailsButton {
+    margin-top: 20px;
+    margin-left: 10px;
+    color: rgb(26, 26, 26);
+    background-color: rgb(68, 68, 68);
+    outline-style: groove;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.detailsButton:hover {
+    background-color: #6eb102;
+    color: #080000;
+}
+
+.itemInfo {
+    position: relative;
+    float: right;
+    text-align: left;
+    padding: 70px 40px;
+}
+
+.itemInfo h3 {
+    color: #c0c0c0;
+    font-size: 20px;
+    line-height: 50px;
+    font-weight: 500;
+    padding: 0;
+}
+
+.itemInfo p {
+    font-size: 20px;
+    line-height: 10px;
+    color: #fffefe;
+    padding: 22px 0px;
+    font-weight: 350;
+}
+
+.itemInfo i {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 10px;
+    color: #727272;
+    padding: 22px 0px;
+    font-weight: 350;
+}
+
+.itemInfo img {
+    border-radius: 50%;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+/* AddItems */
+
+.addItem {
+    text-shadow: 1px 1px #151c41c0;
+    font-style: italic;
+    background-color: #2d333b;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.addItemForm {
+    margin: 2em auto;
+    padding: 1em;
+    width: 50em;
+    border-radius: 10px;
+    border-color: #2d333b;
+    background: #5f6469;
+    box-shadow: 0 2px 2px 3px #ffffff;
+}
+
+.addItemForm h1 {
+    font-family: "Agency FB";
+    font-size: 70px;
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    color: #e2dada;
+}
+
+.addItemForm label {
+
+    font-size: 25px;
+    color: #c4c7ca;
+}
+
+.radio {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.title {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+}
+
+.country {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+}
+
+.date {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+
+}
+
+.date:focus {
+    outline: none;
+    border-color: #d5d5d5;
+    box-shadow: 0 0 5px #070707;
+}
+
+.value {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+}
+
+.imageUrl {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+}
+
+.prints {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+}
+
+.series {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+}
+
+.printedBy {
+    padding: 12px 19px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #000;
+    width: 100%;
+}
+
+.description {
+    font-size: 20px;
+    padding: 12px 19px;
+    margin-bottom: 26px;
+    border-radius: 5px;
+    color: #000;
+    width: 50%;
+}
+
+.send {
+    font-size: 16px;
+    border: #ffffff solid 2px;
+    background-color: hsl(0, 4%, 21%);
+    border-radius: 10px;
+    color: #fff;
+    padding: 11px 67px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.send:hover {
+    background-color: hsl(0, 1%, 75%);
+    border: #000000 solid 2px;
+    color: rgb(0, 0, 0);
+}

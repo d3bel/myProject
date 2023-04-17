@@ -1,41 +1,49 @@
-import { Button } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
+
+import styles from "./MyProfile.module.css";
 
 export const Collection = ({ items, collectionModal }) => {
   return (
     <>
-      {items &&
-        items.length > 0 &&
-        items.map((item) => (
-          <ListGroup defaultActiveKey="#link1" key={item._id}>
+      {items && items.length > 0 && (
+        <ListGroup className={styles["modal"]}>
+          {items.map((item) => (
             <ListGroup.Item
-              style={{ padding: "0.5rem", fontSize: "0.9rem", maxWidth: "70%" }}
+              key={item._id}
+              className={styles["itemInfo"]}
               action
               as={Link}
               to={`/catalogue/${item._id}`}
             >
-              {item.themes}
-              <img
-                className="rounded-circle me-2 float-center"
-                style={{ marginLeft: 20 }}
-                width="30"
-                height="30"
-                alt=""
-                src={item.imageUrl}
-              />
+              {item.format}
+              {item.format === "Stamp" ? (
+                <img
+                  className={styles["modalStamp"]}
+                  src={item.imageUrl}
+                  alt=""
+                />
+              ) : (
+                <img
+                  className={styles["modalCoin"]}
+                  src={item.imageUrl}
+                  alt=""
+                />
+              )}
+
+              {item.series}
+              <i>Click to view details!</i>
             </ListGroup.Item>
-          </ListGroup>
-        ))}
-      <Button
-        className="rounded-pill me-2 float-end"
-        variant="outline-dark"
+          ))}
+        </ListGroup>
+      )}
+      <button
+        className={styles["myButton"]}
         type="button"
-        style={{ fontSize: "1.2rem", padding: "1.2rem" }}
         onClick={collectionModal}
       >
-        Back to MyProfile
-      </Button>
+        {"<< Back to Profile"}
+      </button>
     </>
   );
 };

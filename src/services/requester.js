@@ -22,10 +22,10 @@ const request = async (method, token, url, data) => {
     const response = await fetch(url, options);
 
     if (response.status === 403) {
-      return new Error("Error fetching");
+      return new Error("Wrong email or password!");
     }
     if (response.status === 409) {
-      return new Error("Conflict fetching: used email");
+      return new Error("Email address already in use");
     }
 
     if (response.status === 204) {
@@ -39,18 +39,18 @@ const request = async (method, token, url, data) => {
     }
     return result;
   } catch (err) {
-    console.log(err.message);
+    return new Error(err.message);
   }
 };
 
 export const requestFactory = (token) => {
-  if (!token) {
-    const serializedAuth = localStorage.getItem("accT");
-    if (serializedAuth) {
-      const auth = JSON.parse(serializedAuth);
-      token = auth.accessToken;
-    }
-  }
+  // if (!token) {
+  //   const serializedAuth = localStorage.getItem("accessT");
+  //   if (serializedAuth) {
+  //     const auth = JSON.parse(serializedAuth);
+  //     token = auth.accessToken;
+  //   }
+  // }
   return {
     get: request.bind(null, "GET", token),
     post: request.bind(null, "POST", token),
