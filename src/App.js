@@ -17,7 +17,7 @@ import { Edit } from "./components/Details/Edit";
 import { RoutingGuard } from "./components/common/RoutingGuard";
 import { OwnerGuard } from "./components/common/OwnerGuard";
 import { MyProfile } from "./components/MyProfile/MyProfile";
-import { WRONG_PAGE } from "./components/WRONG_PAGE/WRONG_PAGE";
+import { NotFound } from "./components/NotFound/NotFound";
 import { Logout } from "./components/Logout/Logout";
 
 function App() {
@@ -44,8 +44,8 @@ function App() {
                   </OwnerGuard>
                 }
               />
-              <Route path="*" element={<WRONG_PAGE />} />
             </Route>
+              <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </ItemProvider>

@@ -44,13 +44,6 @@ const request = async (method, token, url, data) => {
 };
 
 export const requestFactory = (token) => {
-  // if (!token) {
-  //   const serializedAuth = localStorage.getItem("accessT");
-  //   if (serializedAuth) {
-  //     const auth = JSON.parse(serializedAuth);
-  //     token = auth.accessToken;
-  //   }
-  // }
   return {
     get: request.bind(null, "GET", token),
     post: request.bind(null, "POST", token),
