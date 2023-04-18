@@ -20,9 +20,6 @@ export const likesService = (token) => {
       console.log(error.message);
     }
   };
-  /*         `${baseUrl}?where=itemId%3D%22${itemId}%22%20and%20_ownerId%3D%22${userId}%22`
-  /data/comments?where=recipeId=
-  */
   const getItemLikes = async (itemId) => {
     try {
       const res = await service.get(`${baseUrl}`);
@@ -31,7 +28,6 @@ export const likesService = (token) => {
       }
       const result = Object.values(res);
       const neededItem = result.filter((i) => i.itemId === itemId);
-      console.log(neededItem);
       return neededItem;
     } catch (error) {
       console.log(error.message);

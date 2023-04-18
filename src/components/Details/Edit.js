@@ -43,7 +43,7 @@ export const Edit = () => {
       .catch((error) => {
         console.log(error.message);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemId]);
 
   const onTypeHandler = (e) => {

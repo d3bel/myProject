@@ -14,7 +14,6 @@ export const Likes = ({ item, onClickLikes, onClickDislike }) => {
     item.likes?.length > 0
       ? item.likes.find((like) => like._ownerId === userId)
       : false;
-      console.log(liked);
 
   return (
     <div className={styles["likesButtons"]}>
